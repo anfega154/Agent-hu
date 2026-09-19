@@ -1,9 +1,34 @@
 # Agent-hu
-# README — Ejecución del agente `compira-hu-analyst` en Kiro
+# README — Agente `compira-hu-analyst` (Kiro · Codex · Claude Code)
 
-Este documento describe cómo ejecutar por primera vez el agente de Kiro encargado de analizar el proyecto **COMPIRA**, construir el inventario funcional y generar las Historias de Usuario de forma controlada.
+Este documento describe cómo ejecutar el agente encargado de analizar el proyecto **COMPIRA**, construir el inventario funcional y generar las Historias de Usuario de forma controlada.
 
-> Este README inicia desde el punto en el que la estructura del agente, los archivos de `steering` y la carpeta de Historias de Usuario ya fueron creados.
+El mismo agente funciona en **tres herramientas**. Su comportamiento es idéntico porque todas leen la misma fuente de verdad:
+
+- fuente de verdad del prompt: `agent/compira-hu-analyst.prompt.md`;
+- reglas compartidas: `.kiro/steering/compira-context.md`, `.kiro/steering/hu-rules.md`, `.kiro/steering/hu-template.md`.
+
+> Este README inicia desde el punto en el que la estructura del agente, los archivos de reglas y la carpeta de Historias de Usuario ya fueron creados.
+
+---
+
+# 0. Compatibilidad multiplataforma
+
+Cada herramienta tiene su propio archivo de entrada, pero todos apuntan al mismo prompt y a las mismas reglas. **No dupliques la lógica**: si cambias el comportamiento del agente, edita `agent/compira-hu-analyst.prompt.md` y, cuando aplique, las reglas de `.kiro/steering/`.
+
+| Herramienta | Archivo(s) de entrada | Cómo se activa |
+|---|---|---|
+| **Kiro** | `.kiro/agents/compira-hu-analyst.md` + `.kiro/steering/*.md` | Selecciona el agente `compira-hu-analyst`. Kiro carga el steering automáticamente. |
+| **Codex** | `AGENTS.md` (raíz) | Codex lee `AGENTS.md` al iniciar cada tarea. No requiere selección manual. |
+| **Claude Code** | `CLAUDE.md` (raíz) + `.claude/agents/compira-hu-analyst.md` | Claude lee `CLAUDE.md` al iniciar; puedes delegar con el subagente `compira-hu-analyst`. |
+
+Los prompts de las secciones 2 en adelante sirven **igual en las tres herramientas**: pégalos tal cual, cambiando solo la forma de arrancar la sesión.
+
+## Arranque por herramienta
+
+- **Kiro:** abre el proyecto y selecciona el agente `compira-hu-analyst`.
+- **Codex:** abre el repositorio con Codex; `AGENTS.md` se aplica solo. Escribe tu prompt directamente.
+- **Claude Code:** abre el repositorio; `CLAUDE.md` se aplica solo. Para forzar el rol, indica: `Usa el subagente compira-hu-analyst` o describe la tarea de análisis funcional para que Claude lo invoque.
 
 ---
 
@@ -12,30 +37,44 @@ Este documento describe cómo ejecutar por primera vez el agente de Kiro encarga
 Antes de ejecutar el agente por primera vez, verifica que exista esta estructura:
 
 ```text
-COMPIRA/
+agent-hu/
+│
+├── AGENTS.md                     # entrada para Codex
+├── CLAUDE.md                     # entrada para Claude Code
+│
+├── agent/
+│   └── compira-hu-analyst.prompt.md   # fuente de verdad del prompt (compartida)
+│
+├── .claude/
+│   └── agents/
+│       └── compira-hu-analyst.md      # subagente de Claude Code
 │
 ├── .kiro/
 │   ├── agents/
-│   │   └── compira-hu-analyst.md
+│   │   └── compira-hu-analyst.md      # agente de Kiro
 │   │
-│   └── steering/
+│   └── steering/                      # reglas compartidas por las 3 herramientas
 │       ├── hu-rules.md
 │       ├── compira-context.md
 │       └── hu-template.md
 │
-├── docs/
-│   ├── proyecto/
-│   │   └── COMPIRA_TDG_Desarrollo_SW_InformeTecnico_V1.docx
-│   │
-│   ├── referencia/
-│   │   └── RQ02v2-Historia-Usuario.pdf
-│   │
-│   └── historias-usuario/
-│       └── HU/
+└── docs/
+    ├── proyecto/
+    │   └── COMPIRA_TDG_Desarrollo_SW_InformeTecnico_V1.docx
+    │
+    ├── referencia/
+    │   └── RQ02v2-Historia-Usuario.pdf
+    │
+    └── historias-usuario/
+        └── HU/
 ```
 
 Los siguientes archivos deben estar completos antes de iniciar:
 
+- `agent/compira-hu-analyst.prompt.md`
+- `AGENTS.md`
+- `CLAUDE.md`
+- `.claude/agents/compira-hu-analyst.md`
 - `.kiro/agents/compira-hu-analyst.md`
 - `.kiro/steering/compira-context.md`
 - `.kiro/steering/hu-rules.md`
@@ -45,9 +84,9 @@ Los siguientes archivos deben estar completos antes de iniciar:
 
 # 2. Primera ejecución del agente
 
-Abre el proyecto de COMPIRA en Kiro.
+Arranca la sesión según tu herramienta (ver sección 0).
 
-Selecciona el agente:
+En Kiro, selecciona el agente:
 
 ```text
 compira-hu-analyst
@@ -850,7 +889,7 @@ La decisión final sobre alcance siempre debe permanecer en el equipo.
 
 # 27. Comando recomendado para retomar el trabajo otro día
 
-Cuando vuelvas a abrir Kiro:
+Cuando vuelvas a abrir el proyecto (en Kiro, Codex o Claude Code):
 
 ```text
 Revisa el estado actual de la documentación de Historias de Usuario de COMPIRA.
