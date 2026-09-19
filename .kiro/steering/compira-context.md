@@ -7,6 +7,35 @@
 
 ---
 
+## Cómo leer este documento (separación funcional / técnica)
+
+El contenido está clasificado en tres bloques conceptuales. **No mezcles los
+niveles**: una decisión o restricción técnica NO se convierte en requisito
+funcional dentro de una HU.
+
+**Bloque A — Contexto funcional (qué necesita hacer COMPIRA).**
+Secciones 1–10 y 14–18. Es la base para redactar HU. Ejemplo funcional: "el
+usuario debe autenticarse".
+
+**Bloque B — Restricciones técnicas aprobadas (decisiones ya establecidas).**
+Secciones 12 y 13 (stack implementado en TDG II y ADR registrados). Son
+decisiones oficiales del equipo; trátalas como restricciones (`Origen: DEC/RT`),
+no como requisitos funcionales inventados. Ejemplo: "AWS Cognito + OTP" es una
+restricción técnica, no la necesidad funcional.
+
+**Bloque C — Decisiones técnicas propuestas (aún NO aprobadas).**
+Recomendaciones o pendientes que no deben tratarse como definitivos:
+- Sección 11 (stack propuesto en TDG I) en lo que haya sido superado por la
+  sección 12.
+- ADR-06 (proveedor de nube general) sigue **abierto**.
+- Deuda técnica de ADR-10 (validación de token en el servidor) está **pendiente**.
+
+Regla: si un elemento del Bloque C aún no fue aprobado, refiérete a él como
+`RECOMENDACIÓN — requiere aprobación` o `Pendiente por definir`, nunca como
+requisito. Relaciona funcional y técnico, pero mantenlos conceptualmente separados.
+
+---
+
 ## 1. Nombre del proyecto
 
 **COMPIRA** — Plataforma web para centralizar flujos de trabajo en pymes.

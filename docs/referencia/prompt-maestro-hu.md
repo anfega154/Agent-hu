@@ -1,3 +1,11 @@
+> **Material de referencia / histórico.** No es una Historia de Usuario ni la
+> fuente vigente de reglas. Las reglas maestras vigentes están en
+> `.kiro/steering/hu-rules.md` y el comportamiento del agente en
+> `agent/compira-hu-analyst.prompt.md`. Se conserva aquí como antecedente del
+> prompt maestro original.
+
+---
+
 # PROMPT MAESTRO — ANÁLISIS, DOCUMENTACIÓN Y REFINAMIENTO DE HISTORIAS DE USUARIO
 
 ## 1. Rol

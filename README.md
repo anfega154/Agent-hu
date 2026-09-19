@@ -3,10 +3,16 @@
 
 Este documento describe cómo ejecutar el agente encargado de analizar el proyecto **COMPIRA**, construir el inventario funcional y generar las Historias de Usuario de forma controlada.
 
-El mismo agente funciona en **tres herramientas**. Su comportamiento es idéntico porque todas leen la misma fuente de verdad:
+El mismo agente funciona en **tres herramientas**. Su comportamiento es idéntico porque todas leen las mismas fuentes. El reparto es:
 
-- fuente de verdad del prompt: `agent/compira-hu-analyst.prompt.md`;
-- reglas compartidas: `.kiro/steering/compira-context.md`, `.kiro/steering/hu-rules.md`, `.kiro/steering/hu-template.md`.
+- **Comportamiento** del agente (fuente única de verdad): `agent/compira-hu-analyst.prompt.md`.
+- **Contexto** del proyecto: `.kiro/steering/compira-context.md`.
+- **Reglas maestras** de análisis: `.kiro/steering/hu-rules.md`.
+- **Formato** de la HU: `.kiro/steering/hu-template.md`.
+
+Los archivos de cada herramienta (`.kiro/agents/`, `AGENTS.md`, `CLAUDE.md`, `.claude/agents/`) son **adaptadores delgados**: solo cargan lo anterior, no duplican las reglas.
+
+El agente actúa como **Analista Funcional Senior** que asesora al Product Owner y al equipo. No toma decisiones de producto por su cuenta: analiza, propone y documenta; el equipo decide.
 
 > Este README inicia desde el punto en el que la estructura del agente, los archivos de reglas y la carpeta de Historias de Usuario ya fueron creados.
 
@@ -14,7 +20,7 @@ El mismo agente funciona en **tres herramientas**. Su comportamiento es idéntic
 
 # 0. Compatibilidad multiplataforma
 
-Cada herramienta tiene su propio archivo de entrada, pero todos apuntan al mismo prompt y a las mismas reglas. **No dupliques la lógica**: si cambias el comportamiento del agente, edita `agent/compira-hu-analyst.prompt.md` y, cuando aplique, las reglas de `.kiro/steering/`.
+Cada herramienta tiene su propio archivo de entrada (adaptador), pero todos apuntan al mismo prompt y a las mismas reglas. **No dupliques la lógica**: si cambias el comportamiento del agente, edita `agent/compira-hu-analyst.prompt.md`; si cambias contexto, reglas o formato, edita el archivo correspondiente en `.kiro/steering/`.
 
 | Herramienta | Archivo(s) de entrada | Cómo se activa |
 |---|---|---|
@@ -51,9 +57,9 @@ agent-hu/
 │
 ├── .kiro/
 │   ├── agents/
-│   │   └── compira-hu-analyst.md      # agente de Kiro
+│   │   └── compira-hu-analyst.md      # adaptador de Kiro
 │   │
-│   └── steering/                      # reglas compartidas por las 3 herramientas
+│   └── steering/                      # contexto, reglas y plantilla (compartidos)
 │       ├── hu-rules.md
 │       ├── compira-context.md
 │       └── hu-template.md
@@ -63,15 +69,22 @@ agent-hu/
     │   └── COMPIRA_TDG_Desarrollo_SW_InformeTecnico_V1.docx
     │
     ├── referencia/
-    │   └── RQ02v2-Historia-Usuario.pdf
+    │   ├── RQ02v2-Historia-Usuario.pdf
+    │   └── prompt-maestro-hu.md        # antecedente (no vigente)
     │
     └── historias-usuario/
-        └── HU/
+        ├── 00-analisis-funcional.md
+        ├── 01-inventario-hu.md
+        ├── 02-matriz-cobertura.md
+        ├── PENDIENTES.md               # lo que todavía no sabemos
+        ├── DECISIONES.md               # decisiones funcionales confirmadas
+        ├── GLOSARIO.md                 # lenguaje ubicuo del dominio
+        └── HU/                         # HU individuales (HU-XXX-nombre.md)
 ```
 
 Los siguientes archivos deben estar completos antes de iniciar:
 
-- `agent/compira-hu-analyst.prompt.md`
+- `agent/compira-hu-analyst.prompt.md` (fuente única de comportamiento)
 - `AGENTS.md`
 - `CLAUDE.md`
 - `.claude/agents/compira-hu-analyst.md`
@@ -79,6 +92,10 @@ Los siguientes archivos deben estar completos antes de iniciar:
 - `.kiro/steering/compira-context.md`
 - `.kiro/steering/hu-rules.md`
 - `.kiro/steering/hu-template.md`
+
+Artefactos de gobernanza documental que el agente mantiene en `docs/historias-usuario/`:
+`DECISIONES.md` (decisiones confirmadas) y `GLOSARIO.md` (lenguaje ubicuo), además de
+`PENDIENTES.md`. Recuerda: **`PENDIENTES.md` = lo que no sabemos**; **`DECISIONES.md` = lo ya definido**.
 
 ---
 
