@@ -198,9 +198,12 @@ entrega la alerta.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-24-alertas-vencimiento.svg` — escenario de
+retraso definido (`DEC-012`) y escenario "próxima a vencer" bloqueado por el umbral
+sin definir (BLOQ-009). El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="360" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="360" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-28 · Wireframe funcional — Configuración general de la organización</text>
+  <text x="20" y="48" font-size="11" fill="#888">Mono-organización (DEC-002). Reúne zona horaria (DEC-011) + notificaciones (DEC-008).</text>
+
+  <rect x="20" y="70" width="580" height="260" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Configuración de la organización</text>
+  <text x="35" y="126" font-size="11" fill="#666">Zona horaria (global) *</text>
+  <rect x="35" y="134" width="360" height="28" rx="4" fill="#fafafa" stroke="#bbb"/><text x="380" y="153" font-size="11" fill="#888">▾</text>
+  <rect x="405" y="134" width="170" height="28" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="412" y="152" font-size="9" fill="#8a6d1a">Catálogo Pendiente (IMP-023)</text>
+  <text x="35" y="196" font-size="11" fill="#666">Notificaciones in-app</text>
+  <rect x="200" y="182" width="52" height="24" rx="12" fill="#3a6ea5"/><circle cx="240" cy="194" r="10" fill="#fff"/>
+  <text x="262" y="199" font-size="10" fill="#888">Interruptor global (activado/desactivado) — DEC-008</text>
+  <rect x="35" y="238" width="150" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/><text x="80" y="260" fill="#fff">Guardar</text>
+  <text x="35" y="300" font-size="10" fill="#888">CA-01: fija zona horaria global. CA-02: desactivar → no se entregan notificaciones (HU-21/HU-24).</text>
+
+  <text x="20" y="348" font-size="10" fill="#999">Trazabilidad HU-28: VF-01, RN-01..RN-03, CA-01/CA-02. Fusiona HU-35.</text>
+</svg>

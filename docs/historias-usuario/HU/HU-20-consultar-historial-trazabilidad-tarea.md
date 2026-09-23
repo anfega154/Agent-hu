@@ -168,9 +168,13 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-20-historial-trazabilidad.svg` — línea de
+tiempo del histórico con alcance por rol (`DEC-022`); contenido exacto de cada
+entrada marcado como Pendiente (auditoría RT-03). El diseño visual final es decisión
+de UX del equipo.
 
 ---
 

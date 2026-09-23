@@ -154,9 +154,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-32-reasignar-coordinador.svg` — reasignación
+exclusiva del Administrador (`DEC-003c`); relación con el rol Coordinador marcada
+como Pendiente (IMP-015). El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -179,11 +179,13 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Parcial (M-05: ubicación del control de cierre de sesión y estado
-de redirección al login).
+**Requerido:** Parcial.
 
-Descripción: control de cierre de sesión y comportamiento de redirección de rutas
-protegidas.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-07-cierre-sesion-rutas.svg` — ubicación del
+control de cierre de sesión y redirección al login sin sesión. Reemplaza "M-05" del
+informe. El detalle del contenedor autenticado (AppShell) queda fuera de foco. El
+diseño visual final es decisión de UX del equipo.
 
 ---
 

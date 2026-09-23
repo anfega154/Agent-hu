@@ -239,10 +239,13 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (referido como M-01 en la fuente).
+**Requerido:** Sí.
 
-Descripción del prototipo requerido: pantalla "Crea tu nueva contraseña" con
-estados de uso, validación (longitud/coincidencia) y error (`AUTH_002`).
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-01-nueva-contrasena.svg` — pantalla "Crea tu
+nueva contraseña" con estados de uso, validación (longitud/coincidencia) y error
+(`AUTH_002`). Reemplaza la referencia "M-01" del informe (no existía como archivo).
+El diseño visual final es decisión de UX del equipo.
 
 ---
 

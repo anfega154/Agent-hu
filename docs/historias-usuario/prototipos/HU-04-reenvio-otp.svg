@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-04 · Wireframe funcional — Reenvío de OTP (dentro de /auth/verify)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Estados del contador de reenvío (120 s por defecto).</text>
+
+  <!-- esperando -->
+  <rect x="20" y="70" width="270" height="330" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Estado: esperando</text>
+  <text x="35" y="130" font-size="11" fill="#666">Campos de código (HU-03)</text>
+  <rect x="35" y="140" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="35" y="200" width="220" height="34" rx="4" fill="#eef0f3" stroke="#ccc"/>
+  <text x="70" y="222" fill="#999">Reenviar en 01:58</text>
+  <text x="35" y="270" font-size="10" fill="#888">CA-02: reenvío no disponible mientras</text>
+  <text x="35" y="284" font-size="10" fill="#888">el contador &gt; 0; se muestra mm:ss.</text>
+
+  <!-- disponible -->
+  <rect x="315" y="70" width="270" height="330" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="330" y="92" font-weight="bold" fill="#555">Estado: reenvío disponible</text>
+  <rect x="330" y="140" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="330" y="200" width="220" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="390" y="222" fill="#fff">Reenviar código</text>
+  <text x="330" y="270" font-size="10" fill="#888">CA-01: reinicia contador a 120 s,</text>
+  <text x="330" y="284" font-size="10" fill="#888">limpia campos y reenfoca el primero.</text>
+  <text x="330" y="312" font-size="10" fill="#888">FA-01: AUTH_013 si demasiadas solicitudes.</text>
+
+  <text x="20" y="425" font-size="10" fill="#999">Trazabilidad HU-04: RN-01 (120 s), CA-01..CA-03. Pendiente: persistencia del contador (MEN-005).</text>
+</svg>

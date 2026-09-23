@@ -166,9 +166,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-19-aprobar-cerrar-tarea.svg` — aprobación
+obligatoria Completada→Cerrada (`DEC-007`); rechazo/devolución marcado como Pendiente
+(IMP-002). El diseño visual final es decisión de UX del equipo.
 
 ---
 

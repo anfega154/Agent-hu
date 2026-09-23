@@ -160,9 +160,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-18-cancelar-tarea.svg` — confirmación y motivo
+marcados como Pendiente por definir; `Cerrada` no es cancelable (`DEC-015b`). El
+diseño visual final es decisión de UX del equipo.
 
 ---
 

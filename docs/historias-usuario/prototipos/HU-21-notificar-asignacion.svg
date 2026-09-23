@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" font-family="Arial, sans-serif" font-size="13">
+  <rect width="720" height="380" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-21 · Wireframe funcional — Notificar asignación / reasignación (in-app)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Un mecanismo, dos eventos (DEC-018a). Sujeto al interruptor global (DEC-008, HU-28).</text>
+
+  <rect x="20" y="70" width="680" height="290" rx="6" fill="#fff" stroke="#ccc"/>
+  <rect x="20" y="70" width="680" height="38" rx="6" fill="#eef2f7" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">COMPIRA</text>
+  <text x="560" y="94" font-size="16">🔔</text>
+  <circle cx="588" cy="80" r="8" fill="#c0392b"/><text x="584" y="84" font-size="9" fill="#fff">2</text>
+  <rect x="470" y="115" width="215" height="110" rx="6" fill="#fbfcfe" stroke="#d5deea"/>
+  <text x="480" y="135" font-size="10" fill="#333">Se te asignó la tarea "___"</text>
+  <text x="480" y="153" font-size="9" fill="#888">nueva asignación (HU-13)</text>
+  <line x1="480" y1="163" x2="675" y2="163" stroke="#eee"/>
+  <text x="480" y="182" font-size="10" fill="#333">Se te reasignó la tarea "___"</text>
+  <text x="480" y="200" font-size="9" fill="#888">reasignación (HU-17)</text>
+  <text x="35" y="150" font-size="10" fill="#888">CA-01: notifica al Colaborador al asignar.</text>
+  <text x="35" y="172" font-size="10" fill="#888">CA-02: notifica al nuevo responsable al reasignar.</text>
+  <text x="35" y="194" font-size="10" fill="#888">CA-03: si interruptor global desactivado → no entrega.</text>
+  <text x="35" y="216" font-size="10" fill="#888">RC-01: entrega en tiempo real (RT-04).</text>
+  <rect x="35" y="245" width="420" height="44" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="265" font-size="10" fill="#8a6d1a">Pendiente IMP-020: ¿persiste hasta el próximo ingreso si no</text>
+  <text x="45" y="280" font-size="10" fill="#8a6d1a">hay sesión activa? Texto del mensaje: MEN-001.</text>
+
+  <text x="20" y="372" font-size="10" fill="#999">Trazabilidad HU-21: VF-01, RN-01..RN-03, CA-01..CA-03. Fusiona HU-22.</text>
+</svg>

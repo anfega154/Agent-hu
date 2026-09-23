@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="460" font-family="Arial, sans-serif" font-size="13">
+  <rect width="900" height="460" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-06 · Wireframe funcional — Restablecer contraseña, pasos 2 y 3 (/auth/password-recovery)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Estados: paso 2 (uso) · error código/política · paso 3 (confirmación).</text>
+
+  <!-- paso 2 uso -->
+  <rect x="20" y="70" width="270" height="360" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Paso 2: restablecer</text>
+  <text x="35" y="120" font-size="11" fill="#666">Código de verificación *</text>
+  <rect x="35" y="128" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="178" font-size="11" fill="#666">Nueva contraseña *</text>
+  <rect x="35" y="186" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="236" font-size="11" fill="#666">Confirmar contraseña *</text>
+  <rect x="35" y="244" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="35" y="290" width="220" height="34" rx="4" fill="#cfd8e3" stroke="#9fb0c4"/>
+  <text x="80" y="312" fill="#555">Confirmar (deshab.)</text>
+  <text x="35" y="352" font-size="10" fill="#888">CA-02: deshab. si código vacío, contraseña</text>
+  <text x="35" y="366" font-size="10" fill="#888">no 10–128 o no coincide.</text>
+
+  <!-- error -->
+  <rect x="315" y="70" width="270" height="360" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="330" y="92" font-weight="bold" fill="#555">Estado: error</text>
+  <rect x="330" y="128" width="220" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="330" y="185" font-size="10" fill="#c0392b">AUTH_003 código inválido / AUTH_004 expirado</text>
+  <text x="330" y="205" font-size="10" fill="#c0392b">AUTH_002 contraseña no cumple política</text>
+  <text x="330" y="225" font-size="10" fill="#c0392b">"Las contraseñas no coinciden"</text>
+  <text x="330" y="260" font-size="10" fill="#888">CA-03/CA-04: no cambia la contraseña actual.</text>
+
+  <!-- paso 3 -->
+  <rect x="610" y="70" width="270" height="360" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="625" y="92" font-weight="bold" fill="#555">Paso 3: confirmación</text>
+  <rect x="625" y="130" width="240" height="60" rx="4" fill="#eef7ee" stroke="#bcd"/>
+  <text x="640" y="165" fill="#2c6e2c">Contraseña actualizada</text>
+  <rect x="625" y="220" width="240" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="660" y="242" fill="#fff">Volver al inicio de sesión</text>
+  <text x="625" y="290" font-size="10" fill="#888">CA-01: restablece y muestra confirmación.</text>
+
+  <text x="20" y="450" font-size="10" fill="#999">Trazabilidad HU-06: VF-01..VF-03, CA-01..CA-04, FA-01..FA-04.</text>
+</svg>

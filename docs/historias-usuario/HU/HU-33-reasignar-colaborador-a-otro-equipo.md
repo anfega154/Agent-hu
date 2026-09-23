@@ -172,9 +172,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-33-reasignar-colaborador.svg` — colaborador
+siempre con equipo (`DEC-014c`); efecto sobre tareas activas marcado como Pendiente
+(IMP-022). El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="360" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="360" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-19 · Wireframe funcional — Aprobar / cerrar tarea (Coordinador)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Aprobación obligatoria para pasar Completada → Cerrada (DEC-007).</text>
+
+  <rect x="20" y="70" width="580" height="260" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Aprobar cierre — Tarea #___ (estado: Completada)</text>
+  <rect x="35" y="118" width="540" height="44" rx="4" fill="#eef7ee" stroke="#8bbf8b"/>
+  <text x="45" y="145" font-size="11" fill="#2c6e2c">Tarea marcada Completada por el Colaborador. Requiere tu aprobación.</text>
+  <rect x="35" y="180" width="160" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="55" y="202" fill="#fff">Aprobar y cerrar</text>
+  <rect x="205" y="180" width="200" height="34" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="215" y="201" font-size="10" fill="#8a6d1a">¿Rechazar / devolver? — Pendiente (IMP-002)</text>
+  <text x="35" y="250" font-size="10" fill="#888">CA-01: aprobada → Cerrada + registro en histórico.</text>
+  <text x="35" y="270" font-size="10" fill="#888">CA-02: no se puede cerrar desde otro estado. CA-03: solo el Coordinador cierra.</text>
+  <text x="35" y="300" font-size="10" fill="#c98b1a">Pendiente IMP-002: qué valida el Coordinador y si puede devolver la tarea (¿a qué estado?).</text>
+
+  <text x="20" y="345" font-size="10" fill="#999">Trazabilidad HU-19: VF-01, RN-01..RN-03, CA-01..CA-03, CP-01.</text>
+</svg>

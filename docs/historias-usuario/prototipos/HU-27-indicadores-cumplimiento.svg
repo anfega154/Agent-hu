@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="420" font-family="Arial, sans-serif" font-size="13">
+  <rect width="820" height="420" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-27 · Wireframe funcional — Indicadores y carga de trabajo</text>
+  <text x="20" y="48" font-size="11" fill="#888">Alcance por rol (DEC-006). Carga de trabajo incluida aquí (DEC-020/DEC-028).</text>
+
+  <rect x="20" y="70" width="780" height="330" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Indicadores del equipo</text>
+  <!-- tarjetas -->
+  <rect x="35" y="112" width="170" height="70" rx="6" fill="#eef7ee" stroke="#8bbf8b"/>
+  <text x="45" y="132" font-size="10" fill="#555">Retrasadas (conteo)</text>
+  <text x="45" y="162" font-size="22" fill="#2c6e2c">— </text>
+  <text x="90" y="162" font-size="9" fill="#888">definido (estado Retrasada)</text>
+  <rect x="220" y="112" width="170" height="70" rx="6" fill="#f7f7f7" stroke="#ccc" stroke-dasharray="4 3"/>
+  <text x="230" y="132" font-size="10" fill="#888">Cumplimiento (%)</text>
+  <text x="230" y="162" font-size="10" fill="#c0392b">IMP-021: fórmula sin definir</text>
+  <rect x="405" y="112" width="175" height="70" rx="6" fill="#f7f7f7" stroke="#ccc" stroke-dasharray="4 3"/>
+  <text x="415" y="132" font-size="10" fill="#888">Próximas a vencer</text>
+  <text x="415" y="162" font-size="10" fill="#c0392b">BLOQ-009: umbral sin definir</text>
+  <rect x="595" y="112" width="175" height="70" rx="6" fill="#eef2f7" stroke="#9fb0c4"/>
+  <text x="605" y="132" font-size="10" fill="#555">Carga por responsable</text>
+  <text x="605" y="150" font-size="9" fill="#888">tareas por Colaborador</text>
+  <text x="605" y="166" font-size="9" fill="#888">(DEC-020) — definido</text>
+  <!-- tabla carga -->
+  <text x="35" y="215" font-weight="bold" fill="#555" font-size="12">Carga de trabajo por responsable</text>
+  <rect x="35" y="228" width="500" height="24" fill="#eef2f7" stroke="#ddd"/>
+  <text x="45" y="245" font-size="11" fill="#555">Colaborador</text><text x="350" y="245" font-size="11" fill="#555">Nº tareas</text>
+  <rect x="35" y="252" width="500" height="24" fill="#fff" stroke="#eee"/>
+  <rect x="35" y="276" width="500" height="24" fill="#fafbfc" stroke="#eee"/>
+  <text x="35" y="330" font-size="10" fill="#888">CA-01: según alcance. CA-02: conteo de retrasadas. CA-03: carga por responsable.</text>
+  <text x="35" y="350" font-size="10" fill="#c98b1a">CA-04/CA-05: cumplimiento y próximas a vencer verificables solo al definir IMP-021 y BLOQ-009.</text>
+
+  <text x="20" y="408" font-size="10" fill="#999">Trazabilidad HU-27: VF-01, RN-01..RN-03, CA-01..CA-05, CP-01.</text>
+</svg>

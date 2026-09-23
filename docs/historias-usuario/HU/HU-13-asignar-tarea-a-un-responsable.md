@@ -161,9 +161,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-13-asignar-tarea.svg` — el alcance de
+candidatos a responsable está marcado como Pendiente (IMP-018). El diseño visual
+final es decisión de UX del equipo.
 
 ---
 

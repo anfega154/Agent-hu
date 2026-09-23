@@ -157,9 +157,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-41-listar-equipos.svg` — equipos con
+coordinador y colaboradores, acción "Gestionar → HU-32/HU-33"; presentación de
+miembros marcada como Pendiente. El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-12 · Wireframe funcional — Crear tarea (Coordinador)</text>
+  <text x="20" y="48" font-size="11" fill="#c98b1a">Wireframe placeholder: campos/fechas Pendiente por definir (IMP-017). Solo esquema.</text>
+
+  <rect x="20" y="70" width="580" height="340" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Nueva tarea</text>
+  <text x="35" y="126" font-size="11" fill="#666">Título</text>
+  <rect x="35" y="134" width="540" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="178" font-size="11" fill="#666">Descripción</text>
+  <rect x="35" y="186" width="540" height="60" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="278" font-size="11" fill="#666">Fecha(s)</text>
+  <rect x="35" y="286" width="260" height="26" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="303" font-size="10" fill="#8a6d1a">¿Inicio y/o límite? formato — Pendiente (IMP-017)</text>
+  <rect x="35" y="350" width="180" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="70" y="372" fill="#fff">Crear tarea</text>
+  <text x="240" y="372" font-size="10" fill="#888">RN-01: estado inicial = Pendiente (DEC-005).</text>
+
+  <text x="20" y="425" font-size="10" fill="#999">Trazabilidad HU-12: CA-01/CA-02. Obligatoriedad y validación de fechas no definidas → wireframe sujeto a IMP-017.</text>
+</svg>

@@ -196,9 +196,12 @@ conteo de tareas próximas a vencer. **Verificable solo una vez definido el umbr
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-27-indicadores-cumplimiento.svg` — carga de
+trabajo y retrasadas definidas; cumplimiento (IMP-021) y próximas a vencer (BLOQ-009)
+marcadas como bloqueadas. El diseño visual final es decisión de UX del equipo.
 
 ---
 

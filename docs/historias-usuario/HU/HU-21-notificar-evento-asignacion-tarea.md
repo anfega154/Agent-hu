@@ -186,9 +186,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-21-notificar-asignacion.svg` — notificación
+in-app por asignación/reasignación; persistencia sin sesión marcada como Pendiente
+(IMP-020). El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -272,10 +272,13 @@ Ninguna para el flujo base ya construido. Para la **extensión de Equipo**:
 
 # Prototipo
 
-**Requerido:** Sí (M-06). La extensión de Equipo requiere actualizar el mockup.
+**Requerido:** Sí.
 
-Descripción: formulario de registro con estados de uso, validación y error, más el
-control de selección de Equipo (extensión `DEC-014`).
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-08-registro-usuarios.svg` — formulario de
+registro con estados de uso, éxito y error (`AUTH_001/002/014`), y el control de
+selección de Equipo marcado como extensión pendiente (`DEC-014`, IMP-016). Reemplaza
+"M-06" del informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380" font-family="Arial, sans-serif" font-size="13">
+  <rect width="760" height="380" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-38 · Wireframe funcional — Reportes de retraso y tiempos de cierre</text>
+  <text x="20" y="48" font-size="11" fill="#888">Solo pantalla, bajo demanda (DEC-009). Fusiona HU-39.</text>
+
+  <rect x="20" y="70" width="720" height="290" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Reportes del administrador</text>
+  <rect x="35" y="112" width="200" height="28" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="70" y="131" font-size="11">Retraso</text>
+  <rect x="245" y="112" width="200" height="28" rx="4" fill="#fafafa" stroke="#bbb"/><text x="265" y="131" font-size="11" fill="#666">Tiempos de cierre</text>
+  <rect x="600" y="112" width="140" height="28" rx="4" fill="#3a6ea5" stroke="#2c5580"/><text x="618" y="131" fill="#fff" font-size="11">Generar</text>
+  <rect x="35" y="158" width="705" height="120" rx="4" fill="#fbfcfe" stroke="#e0e6ee"/>
+  <text x="350" y="200" font-size="12" fill="#888">[ Área de reporte en pantalla ]</text>
+  <rect x="180" y="215" width="400" height="40" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="195" y="238" font-size="10" fill="#c0392b">IMP-021: columnas, fórmulas y definición de "tiempo de cierre" Pendiente.</text>
+  <text x="35" y="305" font-size="10" fill="#888">RN-03: retraso = estado Retrasada (DEC-012); tiempo de cierre = hasta Cerrada (HU-19).</text>
+  <text x="35" y="328" font-size="10" fill="#888">CA-03: solo pantalla, sin exportación, bajo demanda.</text>
+
+  <text x="20" y="370" font-size="10" fill="#999">Trazabilidad HU-38: VF-01, RN-01..RN-03, CA-01..CA-03.</text>
+</svg>

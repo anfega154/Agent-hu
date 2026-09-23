@@ -186,9 +186,13 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-10-editar-usuario.svg` — edición con roles como
+selección múltiple (`DEC-004`) y acción de restablecer contraseña; campos editables y
+flujo del reset marcados como Pendiente (IMP-001). El diseño visual final es decisión
+de UX del equipo.
 
 ---
 

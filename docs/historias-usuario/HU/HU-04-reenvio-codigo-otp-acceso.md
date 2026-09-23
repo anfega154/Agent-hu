@@ -167,11 +167,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (representado dentro de M-03: estados "esperando" y "reenvío
-disponible").
+**Requerido:** Sí.
 
-Descripción: variación de la pantalla de verificación con el contador activo y con
-el reenvío habilitado.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-04-reenvio-otp.svg` — estados "esperando"
+(contador mm:ss) y "reenvío disponible". Reemplaza la representación dentro de
+"M-03" del informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

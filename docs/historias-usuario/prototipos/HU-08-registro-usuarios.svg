@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" font-family="Arial, sans-serif" font-size="13">
+  <rect width="900" height="560" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-08 · Wireframe funcional — Registro de usuarios (/users/register)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Estados: uso · error. Campo "Equipo" = extensión pendiente (DEC-014), marcado aparte.</text>
+
+  <!-- uso -->
+  <rect x="20" y="70" width="400" height="470" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Estado: uso</text>
+  <text x="35" y="118" font-size="11" fill="#666">Nombre * (máx. 100)</text>
+  <rect x="35" y="126" width="350" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="170" font-size="11" fill="#666">Apellido * (máx. 100)</text>
+  <rect x="35" y="178" width="350" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="222" font-size="11" fill="#666">Correo electrónico * (identificador)</text>
+  <rect x="35" y="230" width="350" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="274" font-size="11" fill="#666">Cód. país * / Teléfono * (E.164)</text>
+  <rect x="35" y="282" width="80" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="45" y="300" font-size="10" fill="#888">+57</text>
+  <rect x="125" y="282" width="260" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="330" font-size="11" fill="#666">Contraseña temporal * (10–128)</text>
+  <rect x="35" y="338" width="350" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="35" y="384" font-size="11" fill="#666">Rol * (Colaborador / Coordinador / Administrador)</text>
+  <rect x="35" y="392" width="350" height="26" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="370" y="410" font-size="11" fill="#888">▾</text>
+  <rect x="35" y="430" width="350" height="34" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="451" font-size="10" fill="#8a6d1a">Equipo * (solo Colaborador) — EXTENSIÓN DEC-014, pendiente IMP-016</text>
+  <rect x="35" y="480" width="350" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="150" y="502" fill="#fff">Registrar usuario</text>
+
+  <!-- error/exito -->
+  <rect x="445" y="70" width="435" height="470" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="460" y="92" font-weight="bold" fill="#555">Estados de resultado</text>
+  <rect x="460" y="115" width="405" height="46" rx="4" fill="#eef7ee" stroke="#bcd"/>
+  <text x="470" y="135" font-size="10" fill="#2c6e2c">CA-01: "Usuario &lt;correo&gt; creado correctamente.</text>
+  <text x="470" y="151" font-size="10" fill="#2c6e2c">Recibirá un correo con las instrucciones."</text>
+  <rect x="460" y="180" width="405" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="470" y="199" font-size="10" fill="#c0392b">AUTH_001 — correo duplicado (CA-02)</text>
+  <rect x="460" y="220" width="405" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="470" y="239" font-size="10" fill="#c0392b">AUTH_014 — teléfono/campos inválidos (CA-03)</text>
+  <rect x="460" y="260" width="405" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="470" y="279" font-size="10" fill="#c0392b">AUTH_002 — contraseña temporal débil (CA-04)</text>
+  <text x="460" y="320" font-size="10" fill="#888">CA-05: rollback en Cognito si falla persistencia local.</text>
+  <text x="460" y="340" font-size="10" fill="#888">CA-06: rol por defecto = COLLABORATOR.</text>
+  <text x="460" y="375" font-size="10" fill="#c98b1a">Recomendación (MEN-005): no mostrar contraseña</text>
+  <text x="460" y="389" font-size="10" fill="#c98b1a">temporal en texto plano / generarla automáticamente.</text>
+
+  <text x="20" y="552" font-size="10" fill="#999">Trazabilidad HU-08: VF-01..VF-04, RN-01..RN-05, CA-01..CA-07. Extensión Equipo depende de HU-31/HU-41.</text>
+</svg>

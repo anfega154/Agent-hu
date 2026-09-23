@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="720" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-10 · Wireframe funcional — Editar usuario, rol y contraseña (Administrador)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Multi-rol como conjunto (DEC-004). Reset absorbido de HU-11 (DEC-024).</text>
+
+  <rect x="20" y="70" width="680" height="340" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Editar usuario — &lt;correo&gt;</text>
+  <text x="35" y="124" font-size="11" fill="#666">Datos del usuario (¿campos editables? ¿correo editable?)</text>
+  <rect x="35" y="132" width="640" height="26" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="150" font-size="10" fill="#8a6d1a">Campos editables Pendiente por definir</text>
+  <text x="35" y="188" font-size="11" fill="#666">Roles (selección múltiple — DEC-004)</text>
+  <rect x="35" y="196" width="200" height="26" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="45" y="214" font-size="10">☑ Colaborador</text>
+  <rect x="245" y="196" width="200" height="26" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="255" y="214" font-size="10">☑ Coordinador</text>
+  <rect x="455" y="196" width="220" height="26" rx="4" fill="#fafafa" stroke="#bbb"/><text x="465" y="214" font-size="10">☐ Administrador</text>
+  <rect x="35" y="244" width="640" height="40" rx="4" fill="#f0f4ff" stroke="#c5d3f0"/>
+  <text x="45" y="268" font-size="10" fill="#333">Restablecer contraseña (acción) — flujo exacto Pendiente (IMP-001):</text>
+  <text x="480" y="268" font-size="10" fill="#c98b1a">¿nueva temporal o código?</text>
+  <rect x="35" y="304" width="140" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/><text x="70" y="326" fill="#fff">Guardar</text>
+  <rect x="185" y="304" width="200" height="34" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="200" y="326" font-size="11" fill="#333">Restablecer contraseña</text>
+  <text x="35" y="368" font-size="10" fill="#888">CA-01: edita datos. CA-02: guarda conjunto de roles. CA-03: inicia reset (IMP-001).</text>
+
+  <text x="20" y="428" font-size="10" fill="#999">Trazabilidad HU-10: VF-01/VF-02, RN-01..RN-03, CA-01..CA-03. Fusiona HU-11.</text>
+</svg>

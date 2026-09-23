@@ -165,9 +165,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-29-reportes-productividad-cumplimiento.svg` —
+solo pantalla, bajo demanda (`DEC-009`); columnas y fórmulas marcadas como Pendiente
+(IMP-021). El diseño visual final es decisión de UX del equipo.
 
 ---
 

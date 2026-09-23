@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="380" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="380" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-13 · Wireframe funcional — Asignar tarea a un responsable (Coordinador)</text>
+  <text x="20" y="48" font-size="11" fill="#c98b1a">Placeholder: alcance de candidatos Pendiente (IMP-018). Responsable único (DEC-001).</text>
+
+  <rect x="20" y="70" width="580" height="280" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Asignar responsable — Tarea #___</text>
+  <text x="35" y="126" font-size="11" fill="#666">Responsable (un único Colaborador)</text>
+  <rect x="35" y="134" width="540" height="28" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="560" y="152" font-size="11" fill="#888">▾</text>
+  <rect x="35" y="176" width="540" height="30" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="195" font-size="10" fill="#8a6d1a">Candidatos: ¿toda la organización o solo su equipo? — Pendiente (IMP-018)</text>
+  <rect x="35" y="230" width="180" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="80" y="252" fill="#fff">Asignar</text>
+  <text x="230" y="252" font-size="10" fill="#888">CA-01: registra responsable único y notifica (HU-21).</text>
+  <text x="35" y="300" font-size="10" fill="#888">RN-01/CA-02: cambio posterior de responsable = reasignación (HU-17), no 2º responsable.</text>
+
+  <text x="20" y="365" font-size="10" fill="#999">Trazabilidad HU-13: VF-01, RN-01/RN-02, CA-01/CA-02.</text>
+</svg>

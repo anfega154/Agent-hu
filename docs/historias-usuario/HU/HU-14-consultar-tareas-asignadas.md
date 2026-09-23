@@ -149,9 +149,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-14-consultar-tareas-asignadas.svg` — columnas,
+orden y paginación marcados como Pendiente (MEN-001). El diseño visual final es
+decisión de UX del equipo.
 
 ---
 

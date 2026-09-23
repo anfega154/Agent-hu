@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="420" font-family="Arial, sans-serif" font-size="13">
+  <rect width="620" height="420" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-05 · Wireframe funcional — Recuperar contraseña, paso 1 (/auth/password-recovery)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Estados: uso · error / avance a confirmación.</text>
+
+  <rect x="20" y="70" width="270" height="310" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Estado: uso</text>
+  <text x="35" y="122" fill="#333">Recuperar contraseña</text>
+  <text x="35" y="150" font-size="11" fill="#666">Correo electrónico *</text>
+  <rect x="35" y="158" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="35" y="210" width="220" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="70" y="232" fill="#fff">Enviar código</text>
+  <text x="35" y="280" font-size="10" fill="#888">CA-01: si la cuenta existe, envía código,</text>
+  <text x="35" y="294" font-size="10" fill="#888">muestra destino enmascarado y avanza (HU-06).</text>
+
+  <rect x="315" y="70" width="270" height="310" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="330" y="92" font-weight="bold" fill="#555">Estado: error</text>
+  <rect x="330" y="158" width="220" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <rect x="330" y="200" width="220" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="340" y="219" font-size="10" fill="#c0392b">AUTH_014 — datos inválidos</text>
+  <text x="330" y="270" font-size="10" fill="#888">CA-02: correo vacío/ inválido o servicio</text>
+  <text x="330" y="284" font-size="10" fill="#888">rechaza → no avanza.</text>
+  <text x="330" y="312" font-size="10" fill="#c98b1a">Pendiente INC-06: respuesta genérica</text>
+  <text x="330" y="326" font-size="10" fill="#c98b1a">para no revelar existencia de la cuenta.</text>
+
+  <text x="20" y="405" font-size="10" fill="#999">Trazabilidad HU-05: VF-01, CA-01/CA-02, FA-01..FA-03.</text>
+</svg>

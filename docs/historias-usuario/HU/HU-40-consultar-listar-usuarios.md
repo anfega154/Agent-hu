@@ -161,9 +161,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-40-listar-usuarios.svg` — listado con acción
+"Editar → HU-10"; columnas y búsqueda marcadas como Pendiente (MEN-001). El diseño
+visual final es decisión de UX del equipo.
 
 ---
 

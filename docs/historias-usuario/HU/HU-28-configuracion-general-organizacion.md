@@ -174,9 +174,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-28-configuracion-organizacion.svg` — zona
+horaria global e interruptor de notificaciones; catálogo de zonas marcado como
+Pendiente (IMP-023). El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" font-family="Arial, sans-serif" font-size="13">
+  <rect width="900" height="560" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-01 · Wireframe funcional (baja fidelidad) — Cambio obligatorio de contraseña (/auth/new-password)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Representa solo lo especificado en la HU. No es diseño visual final. Estados: uso · validación · error.</text>
+
+  <!-- Estado 1: uso -->
+  <rect x="20" y="70" width="270" height="440" rx="6" fill="#ffffff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Estado: uso</text>
+  <text x="35" y="120" fill="#333">Crea tu nueva contraseña</text>
+  <text x="35" y="150" font-size="11" fill="#666">Nueva contraseña *</text>
+  <rect x="35" y="158" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="243" y="178" font-size="11" fill="#888">👁</text>
+  <text x="35" y="208" font-size="11" fill="#666">Confirmar contraseña *</text>
+  <rect x="35" y="216" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="35" y="262" width="220" height="78" rx="4" fill="#f0f4ff" stroke="#c5d3f0"/>
+  <text x="45" y="280" font-size="10" fill="#555">Política (informativa):</text>
+  <text x="45" y="296" font-size="10" fill="#555">• mín. 10 caracteres  • 1 mayúscula</text>
+  <text x="45" y="310" font-size="10" fill="#555">• 1 minúscula  • 1 número</text>
+  <text x="45" y="324" font-size="10" fill="#555">• 1 especial (!@#$%^&amp;*)</text>
+  <rect x="35" y="360" width="220" height="34" rx="4" fill="#cfd8e3" stroke="#9fb0c4"/>
+  <text x="105" y="382" fill="#555">Guardar (deshabilitado)</text>
+  <text x="35" y="420" font-size="10" fill="#888">Botón deshabilitado hasta cumplir</text>
+  <text x="35" y="434" font-size="10" fill="#888">longitud 10–128 y coincidencia (CA-02).</text>
+
+  <!-- Estado 2: validación (no coinciden) -->
+  <rect x="315" y="70" width="270" height="440" rx="6" fill="#ffffff" stroke="#ccc"/>
+  <text x="330" y="92" font-weight="bold" fill="#555">Estado: validación</text>
+  <text x="330" y="150" font-size="11" fill="#666">Nueva contraseña *</text>
+  <rect x="330" y="158" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="330" y="208" font-size="11" fill="#666">Confirmar contraseña *</text>
+  <rect x="330" y="216" width="220" height="30" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="330" y="262" font-size="11" fill="#c0392b">Las contraseñas no coinciden</text>
+  <rect x="330" y="360" width="220" height="34" rx="4" fill="#cfd8e3" stroke="#9fb0c4"/>
+  <text x="400" y="382" fill="#555">Guardar (deshabilitado)</text>
+  <text x="330" y="430" font-size="10" fill="#888">FA-01: mantiene formulario, no envía.</text>
+
+  <!-- Estado 3: error backend -->
+  <rect x="610" y="70" width="270" height="440" rx="6" fill="#ffffff" stroke="#ccc"/>
+  <text x="625" y="92" font-weight="bold" fill="#555">Estado: error (AUTH_002)</text>
+  <text x="625" y="150" font-size="11" fill="#666">Nueva contraseña *</text>
+  <rect x="625" y="158" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <text x="625" y="208" font-size="11" fill="#666">Confirmar contraseña *</text>
+  <rect x="625" y="216" width="220" height="30" rx="4" fill="#fafafa" stroke="#bbb"/>
+  <rect x="625" y="262" width="220" height="46" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="635" y="282" font-size="10" fill="#c0392b">AUTH_002 — La contraseña no cumple</text>
+  <text x="635" y="298" font-size="10" fill="#c0392b">la política definida en Cognito.</text>
+  <rect x="625" y="360" width="220" height="34" rx="4" fill="#3a6ea5" stroke="#2c5580"/>
+  <text x="700" y="382" fill="#fff">Guardar</text>
+  <text x="625" y="430" font-size="10" fill="#888">CA-05: no cambia la credencial.</text>
+
+  <text x="20" y="540" font-size="10" fill="#999">Trazabilidad: campos y mensajes tomados de HU-01 (VF-01, VF-02, CA-01..CA-06, FA-01..FA-04). Éxito → / o /auth/verify (CA-03/CA-04).</text>
+</svg>

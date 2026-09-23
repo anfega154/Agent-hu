@@ -150,10 +150,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (M-04, paso 1).
+**Requerido:** Sí.
 
-Descripción: pantalla "Recuperar contraseña" (paso 1) con estados de uso,
-validación y error.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-05-solicitud-recuperacion.svg` — "Recuperar
+contraseña" (paso 1) con estados de uso y error, y nota del pendiente INC-06.
+Reemplaza "M-04 paso 1" del informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -192,10 +192,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (M-03 en la fuente).
+**Requerido:** Sí.
 
-Descripción: pantalla "Verifica tu identidad" con estados de uso, validación
-(código incompleto) y error (`AUTH_003`, `AUTH_004`).
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-03-verificacion-otp.svg` — "Verifica tu
+identidad" con estados de uso, código inválido (`AUTH_003`) y expirado (`AUTH_004`).
+Reemplaza "M-03" del informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

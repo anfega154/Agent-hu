@@ -188,10 +188,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (M-04, pasos 2 y 3).
+**Requerido:** Sí.
 
-Descripción: pantalla "Restablece tu contraseña" (paso 2) y "Contraseña
-actualizada" (paso 3), con estados de uso, validación y error.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-06-confirmacion-restablecimiento.svg` — paso 2
+"Restablece tu contraseña" (uso/error) y paso 3 "Contraseña actualizada". Reemplaza
+"M-04 pasos 2 y 3" del informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="820" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-25 · Wireframe funcional — Panel de seguimiento (con filtros)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Misma vista para Coordinador y Administrador; cambia alcance de datos (DEC-006). Fusiona HU-26/HU-30.</text>
+
+  <rect x="20" y="70" width="780" height="350" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Panel de seguimiento</text>
+  <text x="35" y="112" font-size="10" fill="#888">Alcance: Coordinador = su equipo · Administrador = todos los equipos</text>
+  <!-- filtros -->
+  <rect x="35" y="126" width="150" height="28" rx="4" fill="#fafafa" stroke="#bbb"/><text x="45" y="145" font-size="10" fill="#666">Usuario ▾</text>
+  <rect x="195" y="126" width="150" height="28" rx="4" fill="#fafafa" stroke="#bbb"/><text x="205" y="145" font-size="10" fill="#666">Estado ▾ (7 de DEC-005)</text>
+  <rect x="355" y="126" width="180" height="28" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/><text x="365" y="145" font-size="10" fill="#8a6d1a">Fecha (¿cuál/rango?) Pendiente</text>
+  <!-- tabla -->
+  <rect x="35" y="170" width="750" height="26" fill="#eef2f7" stroke="#ddd"/>
+  <text x="45" y="188" font-size="11" fill="#555">Tarea</text>
+  <text x="300" y="188" font-size="11" fill="#555">Responsable</text>
+  <text x="470" y="188" font-size="11" fill="#555">Estado</text>
+  <text x="620" y="188" font-size="11" fill="#555">Fecha límite</text>
+  <rect x="35" y="196" width="750" height="26" fill="#fff" stroke="#eee"/>
+  <rect x="35" y="222" width="750" height="26" fill="#fafbfc" stroke="#eee"/>
+  <rect x="35" y="248" width="750" height="26" fill="#fff" stroke="#eee"/>
+  <text x="35" y="300" font-size="10" fill="#888">CA-01: vista según alcance. CA-02: filtros combinables. CA-03: actualización en tiempo real (RT-04).</text>
+  <rect x="35" y="320" width="750" height="34" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
+  <text x="45" y="341" font-size="10" fill="#8a6d1a">Columnas, orden, paginación y estados vacíos/carga: Pendiente por definir (MEN-001).</text>
+
+  <text x="20" y="408" font-size="10" fill="#999">Trazabilidad HU-25: VF-01/VF-02, RN-01..RN-03, CA-01..CA-03, FA-01..FA-03.</text>
+</svg>

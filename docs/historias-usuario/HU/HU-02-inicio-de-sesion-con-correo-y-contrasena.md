@@ -203,10 +203,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Sí (M-02 en la fuente).
+**Requerido:** Sí.
 
-Descripción: pantalla de login con estados de uso, validación y error
-(`AUTH_005`, `AUTH_006`, `AUTH_008`), y enlace a recuperación (HU-05).
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-02-inicio-sesion.svg` — login con estados de
+uso, error (`AUTH_005/006/008`) y desvíos a HU-01/HU-03. Reemplaza "M-02" del
+informe. El diseño visual final es decisión de UX del equipo.
 
 ---
 

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="900" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-07 · Wireframe funcional (parcial) — Cierre de sesión y control de rutas</text>
+  <text x="20" y="48" font-size="11" fill="#888">Prototipo parcial (M-05 en la fuente): ubicación del control y redirección. AppShell no es el foco.</text>
+
+  <!-- shell autenticado -->
+  <rect x="20" y="70" width="400" height="340" rx="6" fill="#fff" stroke="#ccc"/>
+  <rect x="20" y="70" width="400" height="40" rx="6" fill="#eef2f7" stroke="#ccc"/>
+  <text x="35" y="95" font-weight="bold" fill="#555">COMPIRA</text>
+  <rect x="320" y="80" width="90" height="22" rx="4" fill="#3a6ea5"/>
+  <text x="332" y="96" font-size="11" fill="#fff">Cerrar sesión</text>
+  <text x="35" y="140" font-size="11" fill="#888">Rutas protegidas accesibles con sesión válida:</text>
+  <text x="45" y="162" font-size="11" fill="#333">/ (principal)</text>
+  <text x="45" y="182" font-size="11" fill="#333">/users/register</text>
+  <text x="45" y="202" font-size="11" fill="#333">/users/delete (ligada a HU-09, ver IMP-012)</text>
+  <text x="35" y="250" font-size="10" fill="#888">CA-03: al cerrar, elimina 4 claves de sessionStorage</text>
+  <text x="35" y="264" font-size="10" fill="#888">(access/id/refresh/user), marca no autenticado y</text>
+  <text x="35" y="278" font-size="10" fill="#888">llama globalSignOut.</text>
+  <text x="35" y="306" font-size="10" fill="#888">CA-04: si globalSignOut falla, sesión local igual cerrada.</text>
+
+  <!-- sin sesion -->
+  <rect x="445" y="70" width="435" height="340" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="460" y="95" font-weight="bold" fill="#555">Sin sesión válida → redirección</text>
+  <rect x="460" y="120" width="200" height="60" rx="4" fill="#fff5f5" stroke="#e0a0a0"/>
+  <text x="470" y="145" font-size="11" fill="#c0392b">Acceso a ruta protegida</text>
+  <text x="470" y="163" font-size="11" fill="#c0392b">sin sesión</text>
+  <text x="675" y="155" font-size="20" fill="#888">→</text>
+  <rect x="700" y="120" width="160" height="60" rx="4" fill="#eef2f7" stroke="#ccc"/>
+  <text x="712" y="155" font-size="11" fill="#333">/auth/login</text>
+  <text x="460" y="230" font-size="10" fill="#888">CA-02: ProtectedRoute redirige al login.</text>
+  <text x="460" y="258" font-size="10" fill="#c98b1a">Pendiente MEN-005: expiración/refresco de token</text>
+  <text x="460" y="272" font-size="10" fill="#c98b1a">durante la navegación; expiración por inactividad.</text>
+
+  <text x="20" y="425" font-size="10" fill="#999">Trazabilidad HU-07: VF-01, RN-01, CA-01..CA-04, FA-01.</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="400" font-family="Arial, sans-serif" font-size="13">
+  <rect width="720" height="400" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-14 · Wireframe funcional — Consultar tareas asignadas (Colaborador)</text>
+  <text x="20" y="48" font-size="11" fill="#c98b1a">Placeholder: columnas/orden/paginación Pendiente por definir (MEN-001).</text>
+
+  <rect x="20" y="70" width="680" height="300" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Mis tareas</text>
+  <rect x="35" y="110" width="650" height="28" fill="#eef2f7" stroke="#ddd"/>
+  <text x="45" y="129" font-size="11" fill="#555">Título</text>
+  <text x="300" y="129" font-size="11" fill="#555">Estado</text>
+  <text x="430" y="129" font-size="11" fill="#555">Fecha límite</text>
+  <text x="560" y="129" font-size="11" fill="#888">(columnas Pendiente)</text>
+  <rect x="35" y="138" width="650" height="26" fill="#fff" stroke="#eee"/>
+  <rect x="35" y="164" width="650" height="26" fill="#fafbfc" stroke="#eee"/>
+  <rect x="35" y="190" width="650" height="26" fill="#fff" stroke="#eee"/>
+  <text x="45" y="240" font-size="10" fill="#888">RN-01: solo tareas cuyo responsable vigente es el usuario.</text>
+  <rect x="35" y="260" width="650" height="40" rx="4" fill="#f7f7f7" stroke="#ddd" stroke-dasharray="4 3"/>
+  <text x="45" y="285" font-size="10" fill="#888">Estado vacío (FA-01): sin tareas asignadas — texto Pendiente por definir.</text>
+
+  <text x="20" y="390" font-size="10" fill="#999">Trazabilidad HU-14: VF-01, RN-01, CA-01/CA-02.</text>
+</svg>

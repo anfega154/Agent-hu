@@ -173,9 +173,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-31-crear-equipo.svg` — nombre + coordinador
+inicial; atributos extra del equipo marcados como Pendiente menor (MEN-004). El
+diseño visual final es decisión de UX del equipo.
 
 ---
 

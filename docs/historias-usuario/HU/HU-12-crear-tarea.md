@@ -168,10 +168,12 @@ exactos: Pendiente por definir.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder; contenido sujeto a IMP-017).
 
-Descripción del prototipo requerido: Pendiente por definir (no hay mockup para M2
-en las fuentes actuales).
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-12-crear-tarea.svg` — esquema del formulario;
+los campos y reglas de fecha están marcados como Pendiente por definir (IMP-017). El
+diseño visual final es decisión de UX del equipo.
 
 ---
 

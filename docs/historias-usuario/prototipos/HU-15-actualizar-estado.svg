@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="440" font-family="Arial, sans-serif" font-size="13">
+  <rect width="900" height="440" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-15 · Wireframe funcional — Actualizar estado de una tarea (Colaborador)</text>
+  <text x="20" y="48" font-size="11" fill="#888">Conjunto cerrado de 7 estados (DEC-005). Colaborador llega hasta Completada, no Cerrada (DEC-007).</text>
+
+  <!-- diagrama de estados -->
+  <rect x="20" y="70" width="860" height="180" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="92" font-weight="bold" fill="#555">Flujo de estados (DEC-005 / DEC-012 / DEC-015)</text>
+  <rect x="40" y="120" width="90" height="34" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="55" y="142" font-size="11">Pendiente</text>
+  <text x="132" y="140" fill="#888">→</text>
+  <rect x="150" y="120" width="95" height="34" rx="4" fill="#eef2f7" stroke="#9fb0c4"/><text x="162" y="142" font-size="11">En progreso</text>
+  <text x="247" y="140" fill="#888">→</text>
+  <rect x="265" y="120" width="95" height="34" rx="4" fill="#eef7ee" stroke="#8bbf8b"/><text x="278" y="142" font-size="11">Completada</text>
+  <text x="362" y="140" fill="#888">→</text>
+  <rect x="380" y="120" width="90" height="34" rx="4" fill="#eae6f7" stroke="#a08bbf"/><text x="398" y="142" font-size="11">Cerrada</text>
+  <text x="475" y="140" font-size="10" fill="#a08bbf">(HU-19, Coordinador)</text>
+  <rect x="600" y="115" width="95" height="30" rx="4" fill="#fff3e6" stroke="#e0a86a"/><text x="612" y="135" font-size="10">Retrasada</text>
+  <text x="600" y="165" font-size="9" fill="#888">automático al vencer (DEC-012)</text>
+  <rect x="720" y="115" width="110" height="30" rx="4" fill="#f7eaea" stroke="#c98b8b"/><text x="732" y="135" font-size="10">En reasignación</text>
+  <text x="720" y="165" font-size="9" fill="#888">instante (HU-17)</text>
+  <rect x="600" y="185" width="95" height="30" rx="4" fill="#f2f2f2" stroke="#aaa"/><text x="612" y="205" font-size="10">Cancelada</text>
+  <text x="700" y="205" font-size="9" fill="#888">terminal (HU-18)</text>
+
+  <!-- panel accion colaborador -->
+  <rect x="20" y="270" width="860" height="140" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="292" font-weight="bold" fill="#555">Acción del Colaborador — Tarea #___</text>
+  <rect x="35" y="308" width="140" height="30" rx="4" fill="#3a6ea5" stroke="#2c5580"/><text x="48" y="328" fill="#fff" font-size="11">Marcar En progreso</text>
+  <rect x="185" y="308" width="140" height="30" rx="4" fill="#3a6ea5" stroke="#2c5580"/><text x="205" y="328" fill="#fff" font-size="11">Marcar Completada</text>
+  <rect x="335" y="308" width="140" height="30" rx="4" fill="#e6e6e6" stroke="#bbb"/><text x="360" y="328" fill="#999" font-size="11">Cerrar (no disp.)</text>
+  <text x="35" y="366" font-size="10" fill="#888">CA-02/VF-02: el Colaborador no puede cerrar (corresponde al Coordinador, HU-19).</text>
+  <text x="35" y="384" font-size="10" fill="#c98b1a">Pendiente IMP-019: transiciones manuales exactas (¿retroceso?) y mensajería de transición inválida.</text>
+
+  <text x="20" y="428" font-size="10" fill="#999">Trazabilidad HU-15: VF-01/VF-02, RN-01..RN-03, CA-01..CA-04, CP-01..CP-03.</text>
+</svg>

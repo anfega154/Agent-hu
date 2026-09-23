@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" font-family="Arial, sans-serif" font-size="13">
+  <rect width="760" height="360" fill="#f5f6f8"/>
+  <text x="20" y="28" font-size="15" font-weight="bold" fill="#333">HU-41 · Wireframe funcional — Listar equipos y miembros (Administrador)</text>
+  <text x="20" y="48" font-size="11" fill="#c98b1a">Placeholder: columnas/presentación Pendiente. Habilita HU-32/HU-33.</text>
+
+  <rect x="20" y="70" width="720" height="270" rx="6" fill="#fff" stroke="#ccc"/>
+  <text x="35" y="94" font-weight="bold" fill="#555">Equipos de la organización</text>
+  <rect x="35" y="112" width="705" height="26" fill="#eef2f7" stroke="#ddd"/>
+  <text x="45" y="130" font-size="11" fill="#555">Equipo</text><text x="250" y="130" font-size="11" fill="#555">Coordinador</text>
+  <text x="480" y="130" font-size="11" fill="#555">Nº colaboradores</text>
+  <rect x="35" y="138" width="705" height="30" fill="#fff" stroke="#eee"/>
+  <text x="620" y="158" font-size="10" fill="#3a6ea5">Gestionar →</text>
+  <rect x="35" y="168" width="705" height="30" fill="#fafbfc" stroke="#eee"/>
+  <text x="620" y="188" font-size="10" fill="#3a6ea5">Gestionar →</text>
+  <rect x="35" y="214" width="705" height="50" rx="4" fill="#f7f7fb" stroke="#ddd"/>
+  <text x="45" y="234" font-size="10" fill="#555">Detalle de equipo seleccionado → Coordinador único (DEC-003b) + colaboradores (DEC-003a)</text>
+  <text x="45" y="252" font-size="10" fill="#888">Presentación de miembros: Pendiente por definir.</text>
+  <text x="35" y="300" font-size="10" fill="#888">CA-01: equipos con Coordinador y colaboradores. CA-02: seleccionar → HU-32/HU-33.</text>
+
+  <text x="20" y="348" font-size="10" fill="#999">Trazabilidad HU-41: VF-01, RN-01/RN-02, CA-01/CA-02.</text>
+</svg>

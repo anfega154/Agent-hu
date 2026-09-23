@@ -227,9 +227,13 @@ Ninguna (el conjunto de estados y las reglas clave están definidos por decision
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-15-actualizar-estado.svg` — incluye el diagrama
+del conjunto cerrado de 7 estados (`DEC-005`) y las transiciones del Colaborador;
+detalle de transiciones manuales marcado como Pendiente (IMP-019). El diseño visual
+final es decisión de UX del equipo.
 
 ---
 

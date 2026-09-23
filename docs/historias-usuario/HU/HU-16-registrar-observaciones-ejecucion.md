@@ -152,9 +152,12 @@ Ninguna.
 
 # Prototipo
 
-**Requerido:** Pendiente.
+**Requerido:** Sí (wireframe placeholder).
 
-Descripción: Pendiente por definir.
+Wireframe funcional (baja fidelidad):
+`docs/historias-usuario/prototipos/HU-16-registrar-observaciones.svg` — reglas de
+contenido y adjuntos marcados como Pendiente por definir. El diseño visual final es
+decisión de UX del equipo.
 
 ---
 
