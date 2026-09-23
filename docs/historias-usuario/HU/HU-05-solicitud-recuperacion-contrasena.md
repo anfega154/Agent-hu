@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | AWS Cognito con `forgotPassword` y SES configurado (RT-01) |
+| Dependencias | Recuperación de contraseña por correo habilitada en el proveedor de identidad (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`).
 
@@ -25,11 +25,10 @@ credencial actual**.
 
 ## Contexto funcional
 
-Desde el enlace "Recuperar contraseña" del login, el usuario llega a
-`/auth/password-recovery` (paso 1: "Recuperar contraseña"). Ingresa su correo; si
-la cuenta existe, Cognito (`forgotPassword`) envía un código al destino
-configurado y el sistema avanza al paso de confirmación (HU-06). Módulo M1.
-Origen: HU (PDF) / DOC.
+Desde el enlace "Recuperar contraseña" del inicio de sesión, el usuario llega a la
+pantalla "Recuperar contraseña" (paso 1). Ingresa su correo; si la cuenta existe, el
+sistema envía un código de recuperación al correo registrado y avanza al paso de
+confirmación (HU-06). Módulo M1. Origen: HU (PDF) / DOC.
 
 ---
 
@@ -114,18 +113,24 @@ al paso de confirmación (HU-06).
 
 # Dependencias
 
-- AWS Cognito con `forgotPassword` habilitado y SES configurado (RT-01).
+- Recuperación de contraseña por correo habilitada en el proveedor de identidad (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/password-recovery`;
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los detalles técnicos se
+> concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** proveedor de identidad AWS Cognito, operación
+  `forgotPassword` (envío por SES). Ruta: `/auth/password-recovery` (paso 1).
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/password-recovery`;
   request `{ email }`; response `{ codeDeliveryDetails }`.
-- RECOMENDACIÓN — requiere aprobación (INC-06): por seguridad (evitar enumeración
-  de usuarios) suele preferirse una respuesta genérica que no revele si el correo
-  existe; hoy el resultado puede diferenciar cuenta existente de inexistente. A
-  confirmar (MEN-005). No es criterio de aceptación hasta aprobarse.
+- RECOMENDACIÓN — requiere aprobación (INC-06): por seguridad (evitar que se pueda
+  averiguar qué correos están registrados) suele preferirse una respuesta genérica
+  que no revele si el correo existe; hoy el resultado puede diferenciar cuenta
+  existente de inexistente. A confirmar (MEN-005). No es criterio de aceptación
+  hasta aprobarse.
 
 ---
 

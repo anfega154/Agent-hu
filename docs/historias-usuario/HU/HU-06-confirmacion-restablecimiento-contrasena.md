@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | HU-05 (solicitud del código); AWS Cognito `confirmForgotPassword` (RT-01) |
+| Dependencias | HU-05 (solicitud del código); restablecimiento de contraseña habilitado en el proveedor de identidad (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`).
 
@@ -25,11 +25,11 @@ ingresar con una credencial segura y vigente**.
 
 ## Contexto funcional
 
-En el paso 2 de `/auth/password-recovery` ("Restablece tu contraseña"), el usuario
+En el paso 2 de "Recuperar contraseña" ("Restablece tu contraseña"), el usuario
 ingresa el código de 6 dígitos recibido, la nueva contraseña y su confirmación. Al
-confirmar (`confirmForgotPassword`), Cognito restablece la contraseña y el sistema
-muestra el paso 3 ("Contraseña actualizada") con la opción de volver al inicio de
-sesión. Módulo M1. Origen: HU (PDF) / DOC.
+confirmar, el sistema restablece la contraseña y muestra el paso 3 ("Contraseña
+actualizada") con la opción de volver al inicio de sesión. Módulo M1. Origen: HU
+(PDF) / DOC.
 
 ---
 
@@ -38,11 +38,11 @@ sesión. Módulo M1. Origen: HU (PDF) / DOC.
 | Campo | Tipo / Control | Obligatorio | Formato | Longitud / Rango | Valores permitidos | Editable | Descripción / Comportamiento |
 |---|---|---|---|---|---|---|---|
 | Código de verificación | Texto numérico (máx. 6 dígitos) | Sí | Numérico | 6 dígitos | 0–9 | Sí | Código recibido por correo (HU-05). |
-| Nueva contraseña | Texto (password, con mostrar/ocultar) | Sí | Texto | 10–128 | Debe cumplir la política de Cognito | Sí | Nueva contraseña. |
-| Confirmar contraseña | Texto (password) | Sí | Texto | 10–128 | Debe coincidir con "Nueva contraseña" | Sí | Repetición de la nueva contraseña. |
+| Nueva contraseña | Texto (con mostrar/ocultar) | Sí | Texto | 10–128 | Debe cumplir la política de seguridad de contraseñas | Sí | Nueva contraseña. |
+| Confirmar contraseña | Texto | Sí | Texto | 10–128 | Debe coincidir con "Nueva contraseña" | Sí | Repetición de la nueva contraseña. |
 
 Política mostrada: mínimo 10 caracteres, una mayúscula, una minúscula, un número y
-un carácter especial (`!@#$%^&*`). Política exacta de Cognito: Pendiente por
+un carácter especial (`!@#$%^&*`). Política de seguridad exacta: Pendiente por
 definir (INC-05).
 
 ---
@@ -67,7 +67,7 @@ contraseñas no coinciden".
 
 ## VF-03. Política de contraseña
 
-**Qué se valida:** que la nueva contraseña cumpla la política de Cognito.
+**Qué se valida:** que la nueva contraseña cumpla la política de seguridad de contraseñas.
 **Cuándo:** al confirmar.
 **Si cumple:** se restablece la contraseña.
 **Si no cumple:** `AUTH_002`; no realiza el cambio.
@@ -111,7 +111,7 @@ informa el motivo y no cambia la contraseña actual.
 
 ## CA-04. Contraseña que no cumple la política
 
-Cuando la nueva contraseña no cumple la política de Cognito, el sistema muestra
+Cuando la nueva contraseña no cumple la política de seguridad, el sistema muestra
 `AUTH_002` y no realiza el cambio.
 
 ---
@@ -121,8 +121,8 @@ Cuando la nueva contraseña no cumple la política de Cognito, el sistema muestr
 ## CP-01 — Restablecimiento exitoso
 
 **Dado que** el usuario recibió el código (HU-05) y está en el paso 2
-**Cuando** ingresa un código válido y una contraseña que cumple la política
-**Entonces** Cognito restablece la contraseña y el sistema muestra el paso 3.
+**Cuando** ingresa un código válido y una contraseña que cumple la política de seguridad
+**Entonces** el sistema restablece la contraseña y muestra el paso 3.
 
 ## CP-02 — Código expirado
 
@@ -138,7 +138,7 @@ Cuando la nueva contraseña no cumple la política de Cognito, el sistema muestr
 |---|---|---|
 | FA-01 | Código inválido | `AUTH_003` — "El código de confirmación es inválido". |
 | FA-02 | Código expirado | `AUTH_004` — "El código de confirmación expiró". |
-| FA-03 | Contraseña no cumple política | `AUTH_002` — "La contraseña no cumple con la política definida en Cognito". |
+| FA-03 | Contraseña no cumple política | `AUTH_002` — "La contraseña no cumple con la política de seguridad definida". |
 | FA-04 | Contraseñas no coinciden | "Las contraseñas no coinciden" (UI). |
 
 ---
@@ -154,22 +154,28 @@ Cuando la nueva contraseña no cumple la política de Cognito, el sistema muestr
 # Dependencias
 
 - HU-05 (solicitud del código).
-- AWS Cognito `confirmForgotPassword` (RT-01).
+- Restablecimiento de contraseña habilitado en el proveedor de identidad (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/password-recovery/confirm`;
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los detalles técnicos se
+> concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** proveedor de identidad AWS Cognito, operación
+  `confirmForgotPassword`. Ruta: `/auth/password-recovery` (pasos 2 y 3).
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/password-recovery/confirm`;
   request `{ email, confirmationCode, newPassword }`; response `204`.
-- INC-05 (MEN-005): política mínima de contraseña difiere entre UI (10) y backend (8).
+- INC-05 (MEN-005): la política mínima de contraseña difiere entre la interfaz (10) y
+  el servidor (8).
 
 ---
 
 # Fuera de alcance
 
 - Reutilización de contraseñas anteriores / historial de contraseñas (depende de la
-  configuración de Cognito).
+  configuración del proveedor de identidad).
 
 ---
 
@@ -181,8 +187,8 @@ Ninguna.
 
 ## Importantes
 
-1. ¿Cognito está configurado para impedir reutilizar contraseñas recientes?
-   (MEN-005).
+1. ¿El proveedor de identidad está configurado para impedir reutilizar contraseñas
+   recientes? (MEN-005).
 
 ---
 

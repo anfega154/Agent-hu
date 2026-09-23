@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | AWS Cognito (flujo `USER_PASSWORD_AUTH`, RT-01) |
+| Dependencias | Proveedor de identidad configurado para el inicio de sesión (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`). Contenido de
 > evidencia real; lo no confirmado se marca `Pendiente por definir`.
@@ -26,12 +26,12 @@ actividades según el rol asignado**.
 
 ## Contexto funcional
 
-Es el punto de entrada a la plataforma (`/auth/login`). El usuario ingresa correo
-y contraseña; el sistema autentica contra Cognito (`InitiateAuth`, flujo
-`USER_PASSWORD_AUTH`). Según la respuesta, el sistema puede: (a) emitir tokens y
-dar acceso directo; (b) exigir cambio de contraseña obligatorio (HU-01); o (c)
-exigir el segundo factor por OTP (HU-03). Módulo M1; actor: cualquier rol;
-resultado: acceso o desvío al desafío correspondiente. Origen: HU (PDF) / DOC.
+Es el punto de entrada a la plataforma. El usuario ingresa su correo y su
+contraseña; el sistema verifica las credenciales. Según el resultado, el sistema
+puede: (a) conceder el acceso directamente; (b) requerir el cambio de contraseña
+obligatorio si es su primer ingreso (HU-01); o (c) solicitar un ingreso más seguro
+en dos pasos mediante un código (HU-03). Módulo M1; actor: cualquier rol; resultado:
+acceso concedido o continuación con el paso que corresponda. Origen: HU (PDF) / DOC.
 
 ---
 
@@ -59,9 +59,10 @@ resultado: acceso o desvío al desafío correspondiente. Origen: HU (PDF) / DOC.
 
 ## VF-02. Autenticación de credenciales
 
-**Qué se valida:** que las credenciales sean válidas contra Cognito.
+**Qué se valida:** que el correo y la contraseña correspondan a una cuenta válida.
 **Cuándo:** al enviar el formulario.
-**Si cumple:** Cognito responde `AUTHENTICATED` o un desafío (`NEW_PASSWORD_REQUIRED`, `EMAIL_OTP`, `SMS_MFA`).
+**Si cumple:** el sistema concede el acceso o continúa con el paso que corresponda
+(cambio de contraseña obligatorio o ingreso en dos pasos).
 **Si no cumple:** se muestra `AUTH_005` y no se otorga acceso.
 
 ## VF-03. Estado de la cuenta
@@ -89,30 +90,29 @@ Origen: HU (PDF).
 
 # Reglas de comportamiento
 
-## RC-01. Desvíos según respuesta de Cognito
+## RC-01. Continuación según el resultado del ingreso
 
-Según la respuesta, el sistema: da acceso directo a `/` (`AUTHENTICATED`), o
-redirige a `/auth/new-password` (`NEW_PASSWORD_REQUIRED`, HU-01), o a `/auth/verify`
-(`EMAIL_OTP`/`SMS_MFA`, HU-03).
+Según el resultado, el sistema: concede el acceso a la pantalla principal, o lleva
+al cambio de contraseña obligatorio (HU-01), o a la verificación en dos pasos (HU-03).
 
 ---
 
 # Criterios de aceptación
 
-## CA-01. Acceso directo con credenciales válidas sin desafíos
+## CA-01. Acceso directo con credenciales válidas
 
-Cuando el usuario ingresa credenciales válidas y Cognito responde `AUTHENTICATED`,
-el sistema guarda la sesión y lo redirige a `/`.
+Cuando el usuario ingresa credenciales válidas y no se requiere ningún paso
+adicional, el sistema inicia la sesión y lo lleva a la pantalla principal.
 
-## CA-02. Desvío a cambio obligatorio de contraseña
+## CA-02. Continuación al cambio obligatorio de contraseña
 
-Cuando Cognito responde `CHALLENGE_REQUIRED` con `NEW_PASSWORD_REQUIRED`, el
-sistema redirige a `/auth/new-password` (HU-01).
+Cuando la cuenta requiere cambiar la contraseña (primer ingreso), el sistema lleva
+al usuario a la pantalla de nueva contraseña (HU-01).
 
-## CA-03. Desvío a verificación en dos pasos
+## CA-03. Continuación a la verificación en dos pasos
 
-Cuando Cognito responde `CHALLENGE_REQUIRED` con `EMAIL_OTP` o `SMS_MFA`, el
-sistema redirige a `/auth/verify` (HU-03).
+Cuando la cuenta usa verificación en dos pasos, el sistema lleva al usuario a la
+pantalla de verificación para completar un ingreso más seguro con un código (HU-03).
 
 ## CA-04. Rechazo por credenciales inválidas
 
@@ -121,8 +121,8 @@ Cuando el correo o la contraseña son incorrectos, el sistema muestra `AUTH_005`
 
 ## CA-05. Rechazo por estado de la cuenta
 
-Cuando la cuenta no está confirmada, muestra `AUTH_006`. Cuando Cognito exige
-restablecer la contraseña, muestra `AUTH_008`.
+Cuando la cuenta no está confirmada, muestra `AUTH_006`. Cuando la cuenta debe
+restablecer la contraseña antes de ingresar, muestra `AUTH_008`.
 
 ---
 
@@ -130,15 +130,15 @@ restablecer la contraseña, muestra `AUTH_008`.
 
 ## CP-01 — Acceso directo válido
 
-**Dado que** el usuario tiene credenciales válidas y MFA no aplica
+**Dado que** el usuario tiene credenciales válidas y no se requiere paso adicional
 **Cuando** envía correo y contraseña correctos
-**Entonces** Cognito responde `AUTHENTICATED` y el sistema muestra `/`.
+**Entonces** el sistema inicia la sesión y muestra la pantalla principal.
 
 ## CP-02 — Desvío a OTP
 
-**Dado que** la cuenta requiere segundo factor
+**Dado que** la cuenta usa verificación en dos pasos
 **Cuando** las credenciales son válidas
-**Entonces** Cognito responde `EMAIL_OTP` y el sistema redirige a `/auth/verify`.
+**Entonces** el sistema lleva al usuario a la pantalla de verificación (HU-03).
 
 ---
 
@@ -158,31 +158,38 @@ restablecer la contraseña, muestra `AUTH_008`.
 
 | ID | Requisito |
 |---|---|
-| RNF-01 | Seguridad: doble factor de autenticación habilitado; la contraseña no se almacena en el cliente. |
-| RNF-02 | Trazabilidad: el backend registra el resultado del login con correo enmascarado. |
+| RNF-01 | Seguridad: verificación en dos pasos habilitada; la contraseña no se almacena en el cliente. |
+| RNF-02 | Trazabilidad: el sistema registra el resultado del ingreso con el correo enmascarado. |
 
 ---
 
 # Dependencias
 
-- AWS Cognito configurado con el cliente de aplicación y flujo `USER_PASSWORD_AUTH` (RT-01).
+- Proveedor de identidad configurado para el inicio de sesión con correo y contraseña (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/login`; request `{ email, password }`;
-  response `AuthResponse { status, user, tokens, challenge }`.
-- El campo correo usa `type=email` pero el formulario tiene `noValidate`; la
-  validación de formato definitiva la realiza el backend.
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los nombres técnicos del
+> proveedor de identidad (AWS Cognito) se concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** proveedor de identidad AWS Cognito, flujo
+  `USER_PASSWORD_AUTH` (operación `InitiateAuth`). "Requerir cambio de contraseña" =
+  `CHALLENGE_REQUIRED` + `NEW_PASSWORD_REQUIRED`; "verificación en dos pasos" =
+  `EMAIL_OTP` (o `SMS_MFA`); "acceso concedido" = `AUTHENTICATED`. Ruta: `/auth/login`.
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/login`; request
+  `{ email, password }`; response `{ status, user, tokens, challenge }`.
+- El campo correo usa `type=email` pero el formulario no valida el formato en el
+  cliente; la validación definitiva la realiza el servidor.
 
 ---
 
 # Fuera de alcance
 
 - Inicio de sesión con proveedores externos (Google, SSO, etc.).
-- Selección manual de canal MFA y verificación por SMS: el enum existe en backend
-  pero el frontend actual solo expone OTP por correo.
+- Selección manual del canal de verificación y verificación por SMS: soportado en el
+  backend pero la interfaz actual solo ofrece el código por correo.
 
 ---
 
@@ -195,7 +202,7 @@ Ninguna.
 ## Importantes
 
 1. ¿Existe un límite de intentos fallidos con bloqueo temporal, o el control queda
-   delegado a Cognito? (MEN-005 / bloqueo por intentos).
+   delegado al proveedor de identidad? (MEN-005 / bloqueo por intentos).
 2. Con `DEC-004` (multi-rol), ¿cómo se refleja el conjunto de roles en el
    resultado del login (rol activo, selección, todos)? (Pendiente por definir).
 

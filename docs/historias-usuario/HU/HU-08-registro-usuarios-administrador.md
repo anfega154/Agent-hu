@@ -11,7 +11,7 @@
 | Versión | 1.1 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) + DEC (`DEC-014`, `DEC-004`) |
 | Última actualización | 2026-09-21 |
-| Dependencias | AWS Cognito `AdminCreateUser` (RT-01); HU-31 (Crear equipo) para la extensión de Equipo (`DEC-014`); RT-02 |
+| Dependencias | Creación de usuarios en el proveedor de identidad (RT-01); HU-31 (Crear equipo) para la extensión de Equipo (`DEC-014`); RT-02 |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`). Versión 1.1 porque
 > `DEC-014(b)` añade una **extensión funcional** (capturar el Equipo del
@@ -28,11 +28,10 @@ integrantes con un flujo de activación controlado**.
 
 ## Contexto funcional
 
-Desde la pantalla protegida `/users/register`, el administrador diligencia el
-formulario de registro. El sistema crea el usuario en Cognito (`AdminCreateUser`)
-con una contraseña temporal, fija sus atributos y su preferencia de MFA, y crea el
-perfil local. El nuevo usuario deberá cambiar su contraseña temporal en el primer
-ingreso (HU-01). Módulo M1/M5; actor: Administrador; resultado: cuenta creada lista
+Desde la pantalla protegida de registro de usuarios, el administrador diligencia el
+formulario. El sistema crea el usuario con una contraseña temporal, fija sus datos y
+su preferencia de verificación en dos pasos, y crea su perfil. El nuevo usuario
+deberá cambiar su contraseña temporal en el primer ingreso (HU-01). Módulo M1/M5; actor: Administrador; resultado: cuenta creada lista
 para activación.
 
 Extensión `DEC-014(b)`: al registrar un **Colaborador** debe capturarse el
@@ -51,11 +50,11 @@ captura Equipo). Origen: HU (PDF) / DOC / DEC.
 | Correo electrónico | Texto (email) | Sí | Correo | Pendiente por definir | — | Sí | Será el usuario/identificador. |
 | Código de país | Lista desplegable | Sí | Indicativo | — | Indicativos telefónicos (por defecto `+57`) | Sí | Prefijo para el teléfono. |
 | Teléfono | Texto (solo dígitos) | Sí | E.164 al concatenar | `^\+[1-9]\d{7,14}$` | — | Sí | Se concatena con el indicativo en formato E.164. |
-| Contraseña temporal | Texto (visible) | Sí | Texto | 10–128 | Debe cumplir la política de Cognito | Sí | El usuario la cambiará en el primer ingreso (HU-01). |
+| Contraseña temporal | Texto (visible) | Sí | Texto | 10–128 | Debe cumplir la política de seguridad de contraseñas | Sí | El usuario la cambiará en el primer ingreso (HU-01). |
 | Rol | Lista desplegable | Sí | Enum | — | `ADMINISTRATOR`, `COORDINATOR`, `COLLABORATOR` (por defecto `COLLABORATOR`) | Sí | Rol del usuario. Ver nota multi-rol (`DEC-004`). |
 | Equipo | Pendiente por definir (control de selección) | Sí para Colaborador (`DEC-014`) | Pendiente por definir | Pendiente por definir | Equipos existentes (HU-31) | Sí | **Extensión `DEC-014(b)`:** equipo del Colaborador. Detalle de control y obligatoriedad por rol: Pendiente por definir. |
 
-Canal MFA enviado: `EMAIL` (fijo desde la UI actual).
+Verificación en dos pasos: por correo (fija desde la interfaz actual).
 
 ---
 
@@ -78,7 +77,7 @@ Canal MFA enviado: `EMAIL` (fijo desde la UI actual).
 
 ## VF-03. Política de contraseña temporal
 
-**Qué se valida:** que la contraseña temporal cumpla la política de Cognito.
+**Qué se valida:** que la contraseña temporal cumpla la política de seguridad de contraseñas.
 **Cuándo:** al crear.
 **Si cumple:** crea el usuario.
 **Si no cumple:** `AUTH_002`, no crea.
@@ -105,10 +104,10 @@ Todo usuario nuevo queda obligado a cambiar su contraseña temporal en el primer
 ingreso (HU-01).
 Origen: HU (PDF).
 
-## RN-03. Canal de MFA preferido
+## RN-03. Verificación en dos pasos por correo
 
-El canal de MFA preferido para los usuarios creados desde la UI actual es correo
-(`EMAIL`).
+Los usuarios creados desde la interfaz actual quedan configurados con verificación
+en dos pasos por correo.
 Origen: HU (PDF).
 
 ## RN-04. Equipo obligatorio para el Colaborador
@@ -134,9 +133,9 @@ Cuando no se especifica rol, el sistema asigna `COLLABORATOR`.
 
 ## RC-02. Consistencia ante fallo de persistencia local
 
-Cuando el usuario se crea en Cognito pero falla la persistencia del perfil local,
-el sistema revierte la creación eliminando el usuario en Cognito y propaga el
-error, evitando cuentas huérfanas.
+Cuando el usuario se crea en el proveedor de identidad pero falla el guardado de su
+perfil, el sistema revierte la creación (elimina el usuario recién creado) y reporta
+el error, evitando cuentas huérfanas.
 
 ---
 
@@ -161,13 +160,13 @@ la creación y muestra el mensaje de validación correspondiente.
 
 ## CA-04. Contraseña temporal que no cumple la política
 
-Cuando la contraseña temporal no cumple la política de Cognito, el sistema rechaza
+Cuando la contraseña temporal no cumple la política de seguridad, el sistema rechaza
 la creación (`AUTH_002`).
 
 ## CA-05. Consistencia ante fallo de persistencia local
 
-Cuando el usuario se crea en Cognito pero falla la persistencia local, el sistema
-revierte la creación eliminando el usuario en Cognito y propaga el error.
+Cuando el usuario se crea en el proveedor de identidad pero falla el guardado de su
+perfil, el sistema revierte la creación y reporta el error.
 
 ## CA-06. Rol por defecto
 
@@ -219,20 +218,26 @@ de éxito.
 
 # Dependencias
 
-- AWS Cognito con `AdminCreateUser`, atributos y SES configurados (RT-01).
-- Sesión de administrador activa (token en `sessionStorage`).
+- Creación de usuarios en el proveedor de identidad, con envío de correo (RT-01).
+- Sesión de administrador activa.
 - HU-31 (Crear equipo): necesaria para poder seleccionar el Equipo (extensión `DEC-014`).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/register` con header
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los nombres técnicos del
+> proveedor de identidad (AWS Cognito) se concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** proveedor de identidad AWS Cognito; creación con
+  `AdminCreateUser` (+ `AdminSetUserMFAPreference`), preferencia de verificación en
+  dos pasos por correo (`preferredMfaChannel: "EMAIL"`); reversión en el proveedor si
+  falla el guardado del perfil. El correo de instrucciones lo gestiona Cognito/SES.
+  Ruta: `/users/register`. Sesión del administrador en `sessionStorage`.
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/register` con header
   `Authorization: Bearer <accessToken>`; request `{ email, password, firstName,
   lastName, phoneNumber, preferredMfaChannel: "EMAIL", roleCode }`; response
-  `{ cognitoSub, userConfirmed, codeDeliveryDetails }`. Backend: `AdminCreateUser`
-  (+ `AdminSetUserMFAPreference`), con rollback en Cognito si falla el guardado local.
-- El correo de instrucciones al nuevo usuario lo gestiona Cognito/SES.
+  `{ cognitoSub, userConfirmed, codeDeliveryDetails }`.
 - RECOMENDACIÓN — requiere aprobación: la contraseña temporal se muestra en texto
   visible; evaluar si es aceptable o si debe generarse automáticamente (MEN-005).
 - El request actual no incluye el campo Equipo; la extensión `DEC-014(b)` requiere
@@ -243,9 +248,9 @@ de éxito.
 # Fuera de alcance
 
 - Edición de usuarios existentes (HU-10).
-- Confirmación de registro mediante código por el propio usuario (existe DTO en
-  backend, no enrutado ni expuesto).
-- Selección de canal MFA distinto de correo desde la UI.
+- Confirmación de registro mediante código por el propio usuario (soportado en el
+  backend pero no expuesto en la interfaz).
+- Selección de un canal de verificación distinto del correo desde la interfaz.
 
 ---
 

@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF `COMPIRA_Historias_Usuario.pdf`) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | HU-08 (registro con contraseña temporal); configuración de política de contraseñas en AWS Cognito (RT-01) |
+| Dependencias | HU-08 (registro con contraseña temporal); política de seguridad de contraseñas (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`). No reabre
 > desarrollo: el software está `Completada`. El contenido proviene de evidencia
@@ -28,14 +28,14 @@ necesito **establecer mi propia contraseña personal antes de acceder**, para
 ## Contexto funcional
 
 Cuando el Administrador crea un usuario (HU-08), la cuenta queda con una
-contraseña temporal y en un estado que obliga a cambiarla. En el primer inicio de
-sesión, AWS Cognito responde al login con `status = CHALLENGE_REQUIRED` y
-`challengeName = NEW_PASSWORD_REQUIRED`. El sistema redirige al usuario a la
-pantalla "Crea tu nueva contraseña" (`/auth/new-password`) y no le permite
-continuar hasta definir una contraseña válida. Es el primer paso obligatorio del
-ciclo de vida de una cuenta. Módulo M1; actor: cualquier rol en su primer ingreso;
-resultado esperado: cuenta activada con credencial personal y acceso concedido (o
-encadenamiento a un segundo desafío).
+contraseña temporal y marcada para que el usuario la cambie. En el primer inicio de
+sesión, el sistema detecta que la cuenta requiere cambiar la contraseña, lleva al
+usuario a la pantalla "Crea tu nueva contraseña" y no le permite continuar hasta que
+defina una contraseña válida. Es el primer paso obligatorio del ciclo de vida de una
+cuenta. Módulo M1; actor: cualquier rol en su primer ingreso; resultado esperado:
+cuenta activada con una credencial personal y acceso concedido (o, si la cuenta usa
+verificación en dos pasos, a continuación se solicita un ingreso más seguro con un
+código; ver HU-03).
 
 Origen: HU (PDF) / DOC.
 
@@ -45,14 +45,14 @@ Origen: HU (PDF) / DOC.
 
 | Campo | Tipo / Control | Obligatorio | Formato | Longitud / Rango | Valores permitidos | Editable | Descripción / Comportamiento |
 |---|---|---|---|---|---|---|---|
-| Nueva contraseña | Texto (password, con mostrar/ocultar) | Sí | Texto | 10–128 caracteres en la UI | Debe cumplir la política del pool de Cognito | Sí | Nueva contraseña personal del usuario. |
-| Confirmar contraseña | Texto (password) | Sí | Texto | 10–128 | Debe coincidir exactamente con "Nueva contraseña" | Sí | Repetición para evitar errores de tecleo. |
-| session | Dato de contexto (no editable) | Sí | Token de sesión del desafío | Pendiente por definir | Devuelto por el login | No | Sesión del desafío `NEW_PASSWORD_REQUIRED`; se transporta internamente, no la ingresa el usuario. |
+| Nueva contraseña | Texto (con mostrar/ocultar) | Sí | Texto | 10–128 caracteres en la interfaz | Debe cumplir la política de seguridad de contraseñas | Sí | Nueva contraseña personal del usuario. |
+| Confirmar contraseña | Texto | Sí | Texto | 10–128 | Debe coincidir exactamente con "Nueva contraseña" | Sí | Repetición para evitar errores de tecleo. |
+| Identificador de la sesión de cambio | Dato interno (no editable) | Sí | — | Pendiente por definir | Generado al iniciar sesión | No | Vincula el cambio con el intento de ingreso; se maneja internamente, el usuario no lo ve ni lo ingresa. |
 
-Política de contraseña mostrada al usuario en pantalla (tooltip de criterios):
+Política de contraseña mostrada al usuario en pantalla (guía de criterios):
 mínimo 10 caracteres, al menos una mayúscula, una minúscula, un número y un
-carácter especial (`!@#$%^&*`). Nota: la política oficial exacta configurada en
-Cognito está `Pendiente por definir` (ver Preguntas pendientes e INC-05).
+carácter especial (`!@#$%^&*`). Nota: la política oficial exacta de seguridad está
+`Pendiente por definir` (ver Preguntas pendientes e INC-05).
 
 ---
 
@@ -67,18 +67,19 @@ coincida exactamente con "Confirmar contraseña".
 **Si no cumple:** el botón permanece deshabilitado; si no coinciden, se muestra
 "Las contraseñas no coinciden".
 
-## VF-02. Política de contraseña de Cognito
+## VF-02. Política de seguridad de la contraseña
 
-**Qué se valida:** que la nueva contraseña cumpla la política configurada en el
-pool de Cognito.
-**Cuándo:** en el backend/Cognito, al enviar el cambio.
-**Si cumple:** Cognito responde `AUTHENTICATED` (o encadena otro desafío).
-**Si no cumple:** se muestra el mensaje `AUTH_002` y no se cambia la credencial.
+**Qué se valida:** que la nueva contraseña cumpla la política de seguridad de
+contraseñas.
+**Cuándo:** al enviar el cambio.
+**Si cumple:** el cambio se acepta y se concede el acceso (o se solicita el ingreso
+en dos pasos, si aplica).
+**Si no cumple:** se muestra el mensaje `AUTH_002` y no se cambia la contraseña.
 
-## VF-03. Contexto válido de la pantalla
+## VF-03. Acceso válido a la pantalla
 
-**Qué se valida:** que exista `session` y correo válidos en el contexto al abrir
-`/auth/new-password`.
+**Qué se valida:** que la pantalla de nueva contraseña se abra dentro de un intento
+de ingreso válido (con la sesión de cambio y el correo asociados).
 **Cuándo:** al cargar la pantalla.
 **Si cumple:** se muestra el formulario.
 **Si no cumple:** el sistema redirige a la pantalla de inicio de sesión.
@@ -93,37 +94,36 @@ El cambio de contraseña en el primer ingreso es obligatorio; el usuario no pued
 omitirlo ni acceder a la aplicación sin completarlo.
 Origen: HU (PDF).
 
-## RN-02. Cumplimiento de la política de Cognito
+## RN-02. Cumplimiento de la política de seguridad
 
-La contraseña definitiva debe cumplir la política configurada en el pool de
-Cognito. El valor exacto de esa política es `Pendiente por definir`.
+La contraseña definitiva debe cumplir la política de seguridad de contraseñas. El
+valor exacto de esa política es `Pendiente por definir`.
 Origen: HU (PDF) / RT-01.
 
 ---
 
 # Reglas de comportamiento
 
-## RC-01. Redirección posterior al cambio
+## RC-01. Acceso tras el cambio
 
-Tras un cambio exitoso, si Cognito responde `AUTHENTICATED`, el sistema guarda la
-sesión (tokens y datos de usuario) y redirige a la pantalla principal (`/`).
+Tras un cambio exitoso, si no se requiere un paso adicional, el sistema inicia la
+sesión del usuario y lo lleva a la pantalla principal.
 
-## RC-02. Encadenamiento a segundo desafío
+## RC-02. Ingreso en dos pasos tras el cambio
 
-Si tras el cambio Cognito responde nuevamente `CHALLENGE_REQUIRED` con `EMAIL_OTP`
-(o `SMS_MFA`), el sistema conduce a la pantalla de verificación (`/auth/verify`,
-HU-03) con la nueva `session`, sin dar por finalizado el acceso.
+Si la cuenta usa verificación en dos pasos, tras el cambio el sistema solicita un
+ingreso más seguro mediante un código enviado al usuario (pantalla de verificación,
+HU-03), sin dar por finalizado el acceso todavía.
 
 ---
 
 # Criterios de aceptación
 
-## CA-01. Redirección obligatoria al desafío de cambio
+## CA-01. Redirección obligatoria al cambio de contraseña
 
-Cuando el usuario inicia sesión con contraseña temporal y el login responde
-`challengeName = NEW_PASSWORD_REQUIRED`, el sistema lo redirige a la pantalla de
-nueva contraseña y no permite acceder a ninguna ruta protegida hasta completar el
-cambio.
+Cuando el usuario inicia sesión con una contraseña temporal y el sistema detecta que
+la cuenta requiere cambiar la contraseña, lo lleva a la pantalla de nueva contraseña
+y no permite acceder a ninguna pantalla interna hasta completar el cambio.
 
 ## CA-02. Bloqueo del envío hasta cumplir longitud y coincidencia
 
@@ -133,25 +133,27 @@ coinciden, se muestra "Las contraseñas no coinciden".
 
 ## CA-03. Cambio exitoso que completa el acceso
 
-Cuando el usuario envía una contraseña que cumple la política de Cognito y este
-responde `AUTHENTICATED`, el sistema guarda la sesión y lo redirige a `/`.
+Cuando el usuario envía una contraseña que cumple la política de seguridad y no se
+requiere un paso adicional, el sistema inicia la sesión y lo lleva a la pantalla
+principal.
 
-## CA-04. Cambio exitoso que encadena un segundo desafío
+## CA-04. Cambio exitoso que continúa con el ingreso en dos pasos
 
-Cuando tras el cambio Cognito responde `CHALLENGE_REQUIRED` con `EMAIL_OTP` (o
-`SMS_MFA`), el sistema conduce a `/auth/verify` con la nueva `session`, sin
-finalizar el acceso.
+Cuando la cuenta usa verificación en dos pasos, tras el cambio el sistema lleva al
+usuario a la pantalla de verificación (HU-03) para completar un ingreso más seguro,
+sin finalizar el acceso todavía.
 
-## CA-05. Rechazo por política de contraseña no cumplida
+## CA-05. Rechazo por política de seguridad no cumplida
 
-Cuando la contraseña cumple la longitud pero no la política de Cognito, el sistema
-muestra `AUTH_002` ("La contraseña no cumple con la política definida en Cognito")
-y no cambia la credencial.
+Cuando la contraseña cumple la longitud pero no la política de seguridad, el sistema
+muestra `AUTH_002` ("La contraseña no cumple con la política de seguridad definida")
+y no cambia la contraseña.
 
 ## CA-06. Acceso directo inválido a la pantalla
 
-Cuando se intenta abrir `/auth/new-password` sin `session` y correo válidos en el
-contexto, el sistema redirige a la pantalla de inicio de sesión.
+Cuando se intenta abrir la pantalla de nueva contraseña fuera de un intento de
+ingreso válido (sin la sesión de cambio y el correo asociados), el sistema redirige
+a la pantalla de inicio de sesión.
 
 ---
 
@@ -159,18 +161,17 @@ contexto, el sistema redirige a la pantalla de inicio de sesión.
 
 ## CP-01 — Cambio exitoso con acceso directo
 
-**Dado que** el usuario ingresa con contraseña temporal y Cognito responde
-`NEW_PASSWORD_REQUIRED`
-**Cuando** define y confirma una contraseña válida que cumple la política
-**Entonces** Cognito responde `AUTHENTICATED`, el sistema guarda la sesión y
-muestra la pantalla principal.
+**Dado que** el usuario ingresa con una contraseña temporal y la cuenta requiere
+cambiarla
+**Cuando** define y confirma una contraseña válida que cumple la política de seguridad
+**Entonces** el sistema inicia la sesión y muestra la pantalla principal.
 
 ## CP-02 — Rechazo por política no cumplida
 
-**Dado que** el usuario está en `/auth/new-password`
-**Cuando** envía una contraseña de longitud válida pero que no cumple la política
-de Cognito
-**Entonces** el sistema muestra `AUTH_002` y no cambia la credencial.
+**Dado que** el usuario está en la pantalla de nueva contraseña
+**Cuando** envía una contraseña de longitud válida pero que no cumple la política de
+seguridad
+**Entonces** el sistema muestra `AUTH_002` y no cambia la contraseña.
 
 ---
 
@@ -179,8 +180,8 @@ de Cognito
 | ID | Escenario | Comportamiento esperado |
 |---|---|---|
 | FA-01 | Contraseñas no coinciden | Mantiene el formulario, no envía; mensaje "Las contraseñas no coinciden" (UI). |
-| FA-02 | Contraseña no cumple política de Cognito | No cambia la credencial; `AUTH_002`. |
-| FA-03 | Sesión de desafío expirada o inválida | Error de challenge; `AUTH_012` ("La solicitud del reto de autenticación no es válida"). |
+| FA-02 | Contraseña no cumple la política de seguridad | No cambia la contraseña; `AUTH_002`. |
+| FA-03 | La sesión de cambio expiró o no es válida | Error de la operación; `AUTH_012` ("La solicitud de autenticación no es válida"). |
 | FA-04 | Error inesperado | Muestra mensaje genérico "Ocurrió un error inesperado. Intenta nuevamente." |
 
 ---
@@ -196,21 +197,31 @@ de Cognito
 
 # Dependencias
 
-- HU-08 (registro de usuario con contraseña temporal, deja la cuenta en estado de cambio obligatorio).
-- AWS Cognito con política de contraseñas configurada (RT-01).
+- HU-08 (registro de usuario con contraseña temporal, deja la cuenta marcada para cambio obligatorio).
+- Política de seguridad de contraseñas configurada (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato funcional observado (Origen: HU/PDF): `POST /api/v1/auth/login/challenge`;
+> Nota de lenguaje: el cuerpo de esta HU usa lenguaje de negocio. Los nombres
+> técnicos del proveedor de identidad (AWS Cognito) se concentran aquí, para
+> referencia de backend/QA, sin contaminar la especificación funcional.
+
+- **Nota técnica (backend/QA):** el proveedor de identidad es AWS Cognito. El estado
+  de "cuenta requiere cambiar la contraseña" corresponde a la respuesta de login
+  `status = CHALLENGE_REQUIRED` con `challengeName = NEW_PASSWORD_REQUIRED`. El
+  "ingreso en dos pasos" corresponde a `EMAIL_OTP` (o `SMS_MFA`). La ruta de la
+  pantalla es `/auth/new-password`.
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/login/challenge`;
   request `{ email, session, challengeName: "NEW_PASSWORD_REQUIRED", newPassword }`;
-  response `AuthResponse { status, user, tokens, challenge }`. El backend traduce el
-  desafío a `RespondToAuthChallenge` de Cognito.
+  response `{ status, user, tokens, challenge }`. El backend lo traduce a
+  `RespondToAuthChallenge` de Cognito. El campo funcional "Identificador de la sesión
+  de cambio" es `session`.
 - RECOMENDACIÓN — requiere aprobación: alinear la validación del cliente con la
-  política real de Cognito para evitar el error `AUTH_002` tras enviar. No es
+  política real de seguridad para evitar el error `AUTH_002` tras enviar. No es
   criterio de aceptación hasta aprobarse.
-- INC-05 (ver PENDIENTES/MEN-005): la UI exige mínimo 10 y el backend valida
+- INC-05 (ver PENDIENTES/MEN-005): la interfaz exige mínimo 10 y el backend valida
   mínimo 8; se recomienda unificar. No se decide aquí.
 
 ---

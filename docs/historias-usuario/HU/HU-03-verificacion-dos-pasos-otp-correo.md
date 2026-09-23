@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | HU-02 (login) o HU-01 (cambio de contraseña) que originan el desafío; AWS Cognito con MFA por correo (RT-01) |
+| Dependencias | HU-02 (login) o HU-01 (cambio de contraseña) que solicitan el ingreso en dos pasos; verificación por correo habilitada (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`).
 
@@ -25,10 +25,10 @@ proteger mi cuenta**.
 
 ## Contexto funcional
 
-Tras el login (o tras el cambio obligatorio de contraseña), cuando Cognito
-devuelve el desafío `EMAIL_OTP`, el sistema muestra la pantalla "Verifica tu
-identidad" (`/auth/verify`). El usuario ingresa el código de 6 dígitos recibido
-por correo para completar la autenticación y recibir los tokens. Módulo M1;
+Tras el inicio de sesión (o tras el cambio obligatorio de contraseña), cuando la
+cuenta usa verificación en dos pasos, el sistema muestra la pantalla "Verifica tu
+identidad". El usuario ingresa el código de 6 dígitos recibido por correo para
+completar un ingreso más seguro y obtener el acceso. Módulo M1;
 resultado: acceso concedido con tokens. Origen: HU (PDF) / DOC.
 
 ---
@@ -38,8 +38,8 @@ resultado: acceso concedido con tokens. Origen: HU (PDF) / DOC.
 | Campo | Tipo / Control | Obligatorio | Formato | Longitud / Rango | Valores permitidos | Editable | Descripción / Comportamiento |
 |---|---|---|---|---|---|---|---|
 | Código OTP | 6 campos de un dígito (solo numéricos) | Sí | Numérico | Exactamente 6 dígitos | 0–9 por dígito | Sí | Código recibido por correo. Soporta autoavance, retroceso y pegado. |
-| session | Dato de contexto | Sí | Token de sesión del desafío | Pendiente por definir | Devuelto por el paso previo | No | Sesión del desafío; no la ingresa el usuario. |
-| Destino enmascarado | Texto informativo (solo lectura) | N/A | Texto | N/A | N/A | No | Correo destino del código (`codeDeliveryDetails.destination`). |
+| Identificador de la sesión de ingreso | Dato interno | Sí | — | Pendiente por definir | Generado en el paso previo | No | Vincula la verificación con el intento de ingreso; no lo ingresa el usuario. |
+| Correo destino (enmascarado) | Texto informativo (solo lectura) | N/A | Texto | N/A | N/A | No | Muestra, parcialmente oculto, el correo al que se envió el código. |
 
 ---
 
@@ -52,16 +52,17 @@ resultado: acceso concedido con tokens. Origen: HU (PDF) / DOC.
 **Si cumple:** se habilita el botón de verificación.
 **Si no cumple:** el botón permanece deshabilitado.
 
-## VF-02. Verificación del código contra Cognito
+## VF-02. Verificación del código
 
-**Qué se valida:** que el código sea correcto y vigente.
+**Qué se valida:** que el código ingresado sea correcto y esté vigente.
 **Cuándo:** al enviar.
-**Si cumple:** Cognito responde `AUTHENTICATED` y se guardan los tokens.
+**Si cumple:** el sistema concede el acceso.
 **Si no cumple:** `AUTH_003` (inválido) o `AUTH_004` (expirado).
 
-## VF-03. Contexto válido de la pantalla
+## VF-03. Acceso válido a la pantalla
 
-**Qué se valida:** que existan `session` y correo válidos al abrir `/auth/verify`.
+**Qué se valida:** que la pantalla de verificación se abra dentro de un intento de
+ingreso válido (con la sesión de ingreso y el correo asociados).
 **Cuándo:** al cargar la pantalla.
 **Si cumple:** se muestra el formulario.
 **Si no cumple:** redirige a la pantalla de inicio de sesión.
@@ -86,8 +87,8 @@ al primero, manteniendo bloqueado el acceso.
 
 ## RC-02. Acceso exitoso
 
-Cuando Cognito responde `AUTHENTICATED`, el sistema guarda tokens y datos de
-usuario y redirige a `/`.
+Cuando el código es correcto, el sistema concede el acceso, inicia la sesión y lleva
+al usuario a la pantalla principal.
 
 ---
 
@@ -95,8 +96,8 @@ usuario y redirige a `/`.
 
 ## CA-01. Verificación exitosa
 
-Cuando el usuario ingresa correctamente el código de 6 dígitos y Cognito responde
-`AUTHENTICATED`, el sistema guarda los tokens y datos de usuario y lo redirige a `/`.
+Cuando el usuario ingresa correctamente el código de 6 dígitos, el sistema concede
+el acceso, inicia la sesión y lo lleva a la pantalla principal.
 
 ## CA-02. Habilitación del envío solo con código completo
 
@@ -110,13 +111,13 @@ y devuelve el foco al primero, manteniendo bloqueado el acceso.
 
 ## CA-04. Código expirado
 
-Cuando el código venció, el sistema muestra `AUTH_004` y no completa la
-autenticación.
+Cuando el código venció, el sistema muestra `AUTH_004` y no concede el acceso.
 
 ## CA-05. Acceso directo inválido a la pantalla
 
-Cuando se intenta abrir `/auth/verify` sin `session` y correo válidos, el sistema
-redirige a la pantalla de inicio de sesión.
+Cuando se intenta abrir la pantalla de verificación fuera de un intento de ingreso
+válido (sin la sesión de ingreso y el correo asociados), el sistema redirige a la
+pantalla de inicio de sesión.
 
 ---
 
@@ -124,13 +125,13 @@ redirige a la pantalla de inicio de sesión.
 
 ## CP-01 — Verificación exitosa
 
-**Dado que** Cognito emitió el desafío `EMAIL_OTP` y el usuario recibió el código
+**Dado que** la cuenta solicitó verificación en dos pasos y el usuario recibió el código
 **Cuando** ingresa los 6 dígitos correctos
-**Entonces** Cognito responde `AUTHENTICATED` y el sistema muestra `/`.
+**Entonces** el sistema concede el acceso y muestra la pantalla principal.
 
 ## CP-02 — Código inválido
 
-**Dado que** el usuario está en `/auth/verify`
+**Dado que** el usuario está en la pantalla de verificación
 **Cuando** ingresa un código incorrecto
 **Entonces** el sistema muestra `AUTH_003`, limpia los campos y reenfoca el primero.
 
@@ -142,7 +143,7 @@ redirige a la pantalla de inicio de sesión.
 |---|---|---|
 | FA-01 | Código incorrecto | `AUTH_003` — "El código de confirmación es inválido". |
 | FA-02 | Código expirado | `AUTH_004` — "El código de confirmación expiró". |
-| FA-03 | Falta el código en la solicitud | `AUTH_012` — "Debes enviar el código de verificación para completar el reto seleccionado". |
+| FA-03 | Falta el código en la solicitud | `AUTH_012` — "Debes enviar el código de verificación para completar el ingreso en dos pasos". |
 
 ---
 
@@ -156,25 +157,31 @@ redirige a la pantalla de inicio de sesión.
 
 # Dependencias
 
-- HU-02 (login) o HU-01 (cambio de contraseña) que originan el desafío `EMAIL_OTP`.
-- AWS Cognito con MFA por correo (SES) habilitado (RT-01).
+- HU-02 (login) o HU-01 (cambio de contraseña) que solicitan el ingreso en dos pasos.
+- Verificación por correo habilitada (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/login/challenge`; request
-  `{ email, session, challengeName: "EMAIL_OTP", code }`; el backend traduce a
-  `challengeResponses = { USERNAME, EMAIL_OTP_CODE }`.
-- El destino mostrado proviene de `codeDeliveryDetails.destination` (correo
-  enmascarado por Cognito); si no está disponible, se muestra el correo ingresado.
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los nombres técnicos del
+> proveedor de identidad (AWS Cognito) se concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** el "ingreso en dos pasos" corresponde al desafío de
+  Cognito `EMAIL_OTP`; "acceso concedido" = `AUTHENTICATED`. Ruta: `/auth/verify`.
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/login/challenge`;
+  request `{ email, session, challengeName: "EMAIL_OTP", code }`; el backend lo
+  traduce a `challengeResponses = { USERNAME, EMAIL_OTP_CODE }`. El campo funcional
+  "Identificador de la sesión de ingreso" es `session`.
+- El correo destino mostrado proviene de `codeDeliveryDetails.destination` (correo
+  enmascarado por el proveedor); si no está disponible, se muestra el correo ingresado.
 
 ---
 
 # Fuera de alcance
 
-- Verificación por SMS (`SMS_MFA`) y selección de canal (`SELECT_MFA_TYPE`):
-  soportados en el enum del backend pero no expuestos en el frontend actual.
+- Verificación por SMS y selección de canal de verificación: soportado en el backend
+  pero no expuesto en la interfaz actual.
 
 ---
 

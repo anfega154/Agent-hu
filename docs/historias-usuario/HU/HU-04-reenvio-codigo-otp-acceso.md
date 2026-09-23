@@ -71,8 +71,8 @@ los campos del código y devuelve el foco al primero.
 
 ## RC-02. Conservación del flujo ante rechazo
 
-Si Cognito rechaza el reenvío, el sistema conserva el flujo y muestra el error sin
-autenticar la sesión.
+Si el servicio rechaza el reenvío, el sistema conserva el proceso de verificación y
+muestra el error sin conceder el acceso.
 
 ---
 
@@ -91,9 +91,9 @@ muestra el tiempo restante en formato mm:ss.
 
 ## CA-03. Rechazo del servicio
 
-Cuando Cognito rechaza el reenvío (por ejemplo, por exceso de solicitudes), el
-sistema conserva el flujo y muestra el mensaje de error correspondiente sin
-autenticar la sesión.
+Cuando el servicio rechaza el reenvío (por ejemplo, por exceso de solicitudes), el
+sistema conserva el proceso de verificación y muestra el mensaje de error
+correspondiente sin conceder el acceso.
 
 ---
 

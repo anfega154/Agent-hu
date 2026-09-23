@@ -11,7 +11,7 @@
 | Versión | 1.0 |
 | Fuente principal | HU (PDF) + DOC (`compira-context.md` §14) |
 | Última actualización | 2026-09-21 |
-| Dependencias | HU-02 / HU-03 (sesión previamente establecida); AWS Cognito `globalSignOut` (RT-01) |
+| Dependencias | HU-02 / HU-03 (sesión previamente establecida); cierre de sesión en el proveedor de identidad (RT-01) |
 
 > Reconstrucción documental según `hu-template.md` (`DEC-017`).
 
@@ -25,16 +25,15 @@ mi información**.
 
 ## Contexto funcional
 
-Mientras exista una sesión válida en el almacenamiento del navegador, el usuario
-puede navegar por las rutas internas (`/`, `/users/register`, `/users/delete`). Al
-cerrar sesión, el sistema limpia los datos locales de autenticación y notifica a
-Cognito (`globalSignOut`). Sin sesión válida, cualquier ruta protegida redirige al
-login. Módulo M1. Origen: HU (PDF) / DOC.
+Mientras exista una sesión activa en el navegador, el usuario puede navegar por las
+pantallas internas de la plataforma. Al cerrar sesión, el sistema borra los datos de
+la sesión en el navegador y cierra la sesión también en el proveedor de identidad.
+Sin sesión activa, cualquier pantalla interna redirige al inicio de sesión. Módulo
+M1. Origen: HU (PDF) / DOC.
 
-> Nota de trazabilidad: `/users/delete` corresponde a la capacidad de eliminación
-> de usuarios (HU-09), hoy `Descartada` (`DEC-019`) con discrepancia abierta
-> `IMP-012`. La ruta se documenta tal como figura en la evidencia; su vigencia
-> depende de resolver `IMP-012`.
+> Nota de trazabilidad: entre las pantallas internas figura la de eliminación de
+> usuarios (HU-09), hoy `Descartada` (`DEC-019`) con discrepancia abierta `IMP-012`.
+> Su vigencia depende de resolver `IMP-012`.
 
 ---
 
@@ -42,63 +41,63 @@ login. Módulo M1. Origen: HU (PDF) / DOC.
 
 | Campo | Tipo / Control | Obligatorio | Formato | Longitud / Rango | Valores permitidos | Editable | Descripción / Comportamiento |
 |---|---|---|---|---|---|---|---|
-| Cerrar sesión | Acción | N/A | — | N/A | N/A | N/A | Limpia la sesión local e invoca el cierre en Cognito. |
-| Sesión almacenada | Datos en `sessionStorage` | Sí | Claves | N/A | `compira_access_token`, `compira_id_token`, `compira_refresh_token`, `compira_user` | No | Datos de sesión del navegador. |
+| Cerrar sesión | Acción | N/A | — | N/A | N/A | N/A | Borra la sesión del navegador y cierra la sesión en el proveedor de identidad. |
+| Sesión del navegador | Datos de sesión | Sí | — | N/A | Datos de acceso e identidad del usuario | No | Se mantienen mientras la pestaña/navegador esté abierto (ver Aclaraciones para el detalle técnico). |
 
 ---
 
 # Validaciones funcionales
 
-## VF-01. Existencia de sesión válida
+## VF-01. Existencia de sesión activa
 
-**Qué se valida:** que exista una sesión válida en el almacenamiento del navegador.
-**Cuándo:** al acceder a una ruta protegida.
-**Si cumple:** permite el acceso a la vista protegida.
+**Qué se valida:** que exista una sesión activa en el navegador.
+**Cuándo:** al acceder a una pantalla interna.
+**Si cumple:** permite el acceso a la pantalla.
 **Si no cumple:** redirige a la pantalla de inicio de sesión.
 
 ---
 
 # Reglas de negocio
 
-## RN-01. Almacenamiento en sessionStorage
+## RN-01. La sesión no persiste entre cierres del navegador
 
-La sesión se almacena en `sessionStorage`, por lo que se pierde al cerrar la
-pestaña o el navegador.
+La sesión se mantiene solo mientras la pestaña o el navegador estén abiertos; al
+cerrarlos, se pierde y el usuario debe volver a iniciar sesión.
 Origen: HU (PDF).
 
 ---
 
 # Reglas de comportamiento
 
-## RC-01. Cierre local resiliente
+## RC-01. Cierre resiliente ante fallo
 
-Cuando el cierre en Cognito (`globalSignOut`) falla, el sistema mantiene la sesión
-cerrada localmente de todas formas (no reexpone la sesión al usuario).
+Cuando el cierre en el proveedor de identidad falla, el sistema mantiene la sesión
+cerrada en el navegador de todas formas (no reexpone la sesión al usuario).
 
 ---
 
 # Criterios de aceptación
 
-## CA-01. Acceso a rutas protegidas con sesión activa
+## CA-01. Acceso a pantallas internas con sesión activa
 
-Cuando el usuario tiene una sesión válida, puede acceder a las vistas protegidas
-mientras la sesión exista en el almacenamiento del navegador.
+Cuando el usuario tiene una sesión activa, puede acceder a las pantallas internas
+mientras la sesión exista en el navegador.
 
-## CA-02. Redirección sin sesión válida
+## CA-02. Redirección sin sesión activa
 
-Cuando el usuario no tiene sesión válida e intenta abrir una ruta protegida, el
+Cuando el usuario no tiene sesión activa e intenta abrir una pantalla interna, el
 sistema lo redirige a la pantalla de inicio de sesión.
 
 ## CA-03. Cierre de sesión
 
-Cuando el usuario cierra sesión, el sistema elimina las cuatro claves de
-autenticación del `sessionStorage`, actualiza el estado a no autenticado y solicita
-a Cognito el cierre global de la sesión.
+Cuando el usuario cierra sesión, el sistema borra los datos de la sesión en el
+navegador, lo marca como no autenticado y cierra la sesión en el proveedor de
+identidad.
 
-## CA-04. Cierre local resiliente ante fallo del backend
+## CA-04. Cierre resiliente ante fallo
 
-Cuando el cierre en Cognito falla, el sistema mantiene la sesión cerrada localmente
-de todas formas.
+Cuando el cierre en el proveedor de identidad falla, el sistema mantiene la sesión
+cerrada en el navegador de todas formas.
 
 ---
 
@@ -108,14 +107,14 @@ de todas formas.
 
 **Dado que** el usuario tiene sesión activa
 **Cuando** selecciona "Cerrar sesión"
-**Entonces** el sistema elimina las cuatro claves del `sessionStorage`, marca no
-autenticado y solicita `globalSignOut` a Cognito.
+**Entonces** el sistema borra los datos de la sesión en el navegador, lo marca como
+no autenticado y cierra la sesión en el proveedor de identidad.
 
 ## CP-02 — Acceso sin sesión
 
-**Dado que** no hay sesión válida
-**Cuando** el usuario intenta abrir una ruta protegida
-**Entonces** el sistema redirige al login.
+**Dado que** no hay sesión activa
+**Cuando** el usuario intenta abrir una pantalla interna
+**Entonces** el sistema redirige al inicio de sesión.
 
 ---
 
@@ -123,7 +122,7 @@ autenticado y solicita `globalSignOut` a Cognito.
 
 | ID | Escenario | Comportamiento esperado |
 |---|---|---|
-| FA-01 | `globalSignOut` falla en Cognito | La sesión local ya fue limpiada; el usuario queda deslogueado igualmente. |
+| FA-01 | El cierre en el proveedor de identidad falla | La sesión del navegador ya fue borrada; el usuario queda con la sesión cerrada igualmente. |
 
 ---
 
@@ -131,28 +130,34 @@ autenticado y solicita `globalSignOut` a Cognito.
 
 | ID | Requisito |
 |---|---|
-| RNF-01 | Seguridad: al no usar `localStorage`, la sesión no persiste entre cierres del navegador. |
+| RNF-01 | Seguridad: la sesión no persiste entre cierres del navegador. |
 
 ---
 
 # Dependencias
 
 - HU-02 / HU-03 (sesión previamente establecida).
-- AWS Cognito `globalSignOut` (RT-01).
+- Cierre de sesión habilitado en el proveedor de identidad (RT-01).
 
 ---
 
 # Aclaraciones
 
-- Contrato observado (Origen: HU/PDF): `POST /api/v1/auth/logout`; request
-  `{ accessToken }`; response `204`. Protección de rutas del lado del cliente
-  mediante `ProtectedRoute` (redirige a `/auth/login` si no hay usuario en contexto).
-- La protección de rutas es del lado del cliente. La autorización real de cada
-  operación protegida depende del `accessToken` enviado al backend — ligado a la
-  deuda `DEC-010` (validación de token/rol en servidor).
-- RECOMENDACIÓN — requiere aprobación: no existe refresco automático de tokens ni
-  interceptor global de expiración durante la navegación (MEN-005). No es criterio
-  de aceptación hasta aprobarse.
+> Nota de lenguaje: el cuerpo usa lenguaje de negocio; los detalles técnicos se
+> concentran aquí para backend/QA.
+
+- **Nota técnica (backend/QA):** la sesión del navegador se guarda en
+  `sessionStorage` con las claves `compira_access_token`, `compira_id_token`,
+  `compira_refresh_token`, `compira_user` (por eso no persiste entre cierres). El
+  cierre en el proveedor de identidad (AWS Cognito) es `globalSignOut`. La protección
+  de pantallas es del lado del cliente (`ProtectedRoute`, redirige a `/auth/login`).
+- **Contrato observado (Origen: HU/PDF):** `POST /api/v1/auth/logout`; request
+  `{ accessToken }`; response `204`.
+- La autorización real de cada operación protegida depende del token enviado al
+  servidor — ligado a la deuda `DEC-010` (validación de token/rol en servidor).
+- RECOMENDACIÓN — requiere aprobación: no existe refresco automático de la sesión ni
+  control global de expiración durante la navegación (MEN-005). No es criterio de
+  aceptación hasta aprobarse.
 
 ---
 
@@ -171,8 +176,8 @@ Ninguna.
 
 ## Importantes
 
-1. ¿Qué debe ocurrir cuando el `accessToken` expira durante la navegación
-   (redirección automática al login vs refresco de token)? (MEN-005).
+1. ¿Qué debe ocurrir cuando la sesión expira durante la navegación (redirección
+   automática al inicio de sesión vs renovación automática de la sesión)? (MEN-005).
 2. ¿Se requiere expiración de sesión por inactividad? (MEN-005).
 
 ---
