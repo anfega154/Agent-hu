@@ -30,8 +30,8 @@ pasar a `Lista para desarrollo` hasta resolverse.
 
 | ID | Pendiente | Módulo / HU | Estado |
 |---|---|---|---|
-| BLOQ-008 | **Deuda de seguridad `DEC-010`:** el backend no valida el token Bearer ni aplica autorización por rol/equipo en el servidor. Es RNF bloqueante para llevar cualquier HU de M2–M5 a `Lista para desarrollo`. | Transversal M2–M5 | Abierto |
-| BLOQ-009 | **Umbral de "próxima a vencer" (HU-24):** cuánto antes del vencimiento debe alertarse al Colaborador. `DEC-012` resolvió solo el "retraso" (inmediato); el umbral de "próximo" no está definido. Sin él, el escenario CA-02/VF-02 de HU-24 no es construible. | M3/M4 / HU-24, HU-27 | Abierto |
+| BLOQ-008 | **Deuda de seguridad `DEC-010`:** se implementó validación Bearer y autorización por rol/equipo para el alcance autorizado (`DEC-030`); resta aceptación transversal. Es RNF bloqueante para llevar cualquier HU de M2–M5 a `Lista para desarrollo`. | Transversal M2–M5 | Abierto |
+| BLOQ-009 | **Umbral de "próxima a vencer" (HU-24):** cuánto antes del vencimiento debe alertarse al Colaborador. `DEC-012` resolvió solo el "retraso" (inmediato); el umbral de "próximo" se confirma en `DEC-029`. Resuelto: 24 horas antes (`DEC-029`). | M3/M4 / HU-24, HU-27 | Resuelto (`DEC-029`) |
 
 > Nota: los bloqueantes originales de análisis de dominio (BLOQ-001, BLOQ-002,
 > BLOQ-004..BLOQ-007) fueron **resueltos** por DEC-001..DEC-016 (ver
@@ -54,7 +54,7 @@ No bloquean el inicio, pero deben resolverse para completar las HU.
 | IMP-017 | **Campos y reglas de la tarea (HU-12):** conjunto exacto de campos obligatorios, formatos y reglas de fecha (¿fecha de inicio y/o límite?, formato, ¿fecha límite no anterior a hoy?). El documento oficial dice "título, descripción, fechas" sin precisar. Bloquea el DoR de HU-12. | M2 / HU-12 | Abierto |
 | IMP-018 | **Alcance de candidatos a responsable (HU-13, HU-17):** ¿cualquier Colaborador de la organización o solo los del equipo del Coordinador? Relacionado con `DEC-003` (Equipo). | M2 / HU-13, HU-17 | Abierto |
 | IMP-019 | **Detalle de transiciones de estado operadas por el Colaborador (HU-15):** transiciones manuales exactas permitidas (¿retroceso de estado?) más allá del conjunto y reglas ya fijados por `DEC-005`/`DEC-015`; y mensajería de transición inválida. | M2 / HU-15 | Abierto |
-| IMP-020 | **Persistencia de notificaciones/alertas sin sesión activa (HU-21, HU-24):** ¿la notificación in-app se acumula/persiste hasta el próximo ingreso del destinatario o solo se muestra en tiempo real si está conectado? | M3 / HU-21, HU-24 | Abierto |
+| IMP-020 | **Persistencia de notificaciones/alertas sin sesión activa (HU-21, HU-24):** ¿la notificación in-app se acumula/persiste hasta el próximo ingreso del destinatario o solo se muestra en tiempo real si está conectado? Ambos casos aprobados. | M3 / HU-21, HU-24 | Resuelto (`DEC-029`) |
 | IMP-021 | **Fórmulas de los indicadores de cumplimiento (HU-27) y de los reportes (HU-29, HU-38):** definición exacta de cada indicador/reporte (numerador/denominador, período, exclusiones como tareas canceladas, definición de "tiempo de cierre"). Sin ellas, los indicadores de HU-27 y el contenido de HU-29/HU-38 no son verificables. | M4/M5 / HU-27, HU-29, HU-38 | Abierto |
 | IMP-022 | **Efecto de reasignar un colaborador a otro equipo (HU-33) sobre sus tareas activas:** ¿las tareas ya asignadas se mantienen con él?, ¿cambian de alcance de seguimiento al nuevo equipo/Coordinador? | M5 / HU-33 | Abierto |
 | IMP-023 | **Configuración de zona horaria (HU-28):** catálogo de zonas horarias válidas y efecto del cambio de zona sobre tareas con fecha límite ya fijada. | M5 / HU-28 | Abierto |
@@ -100,8 +100,8 @@ Pueden definirse posteriormente sin cambiar sustancialmente el comportamiento.
 
 ## Resumen
 
-- Bloqueantes: 2 (BLOQ-008 deuda de seguridad `DEC-010`; BLOQ-009 umbral "próxima a vencer", afecta HU-24 y HU-27).
-- Importantes: 13 (IMP-001, IMP-002, IMP-012, IMP-013, IMP-015 a IMP-023).
+- Bloqueantes abiertos: 1 (BLOQ-008: aceptación transversal de seguridad; implementación mínima `DEC-030`). BLOQ-009 resuelto: 24 horas.
+- Importantes abiertos: 12 (IMP-001, IMP-002, IMP-012, IMP-013, IMP-015 a IMP-019, IMP-021 a IMP-023). IMP-020 resuelto.
 - Menores: 5 (MEN-001 a MEN-005).
 - Discrepancia crítica a resolver antes del cierre: IMP-012 (HU-09 descartada vs
   backlog oficial).

@@ -8,9 +8,9 @@
 | Actor | Sistema COMPIRA → Colaborador (destinatario) |
 | Estado | Borrador |
 | Prioridad | Alta (RECOMENDACIÓN — requiere aprobación) |
-| Versión | 1.0 |
+| Versión | 1.1 |
 | Fuente principal | DOC (`compira-context.md` §6 M3) + DEC (`DEC-018(a)`, `DEC-008`) |
-| Última actualización | 2026-09-21 |
+| Última actualización | 2026-09-26 |
 | Dependencias | HU-13 (asignación), HU-17 (reasignación), RT-04 |
 
 > HU nueva en `Borrador`. `DEC-018(a)` fusiona HU-22 (notificar reasignación) en
@@ -79,8 +79,10 @@ Origen: DEC (`DEC-008`).
 
 ## RN-03. Alcance in-app
 
-Las notificaciones de M3 son dentro de la plataforma, en tiempo real.
-Origen: DOC (§6 M3).
+Las notificaciones de M3 son dentro de la plataforma: entrega en tiempo real para
+usuarios conectados y persistencia para consulta al próximo ingreso si están
+desconectados. No se requiere correo ni push.
+Origen: DOC (§6 M3), DEC (`DEC-029`).
 
 ---
 
@@ -89,7 +91,7 @@ Origen: DOC (§6 M3).
 ## RC-01. Entrega en tiempo real
 
 La notificación se entrega/actualiza en tiempo real, sin recarga completa de página
-(RT-04).
+(RT-04). Los avisos persisten también sin sesión activa (`DEC-029`).
 
 ---
 
@@ -105,6 +107,11 @@ están activas, el sistema entrega al Colaborador una notificación in-app del e
 Cuando una tarea se reasigna a un nuevo responsable (HU-17) y las notificaciones
 están activas, el sistema entrega al nuevo responsable una notificación in-app del
 evento.
+
+## CA-04. Destinatario desconectado
+
+Con notificaciones activas, el aviso se guarda aunque el destinatario no tenga
+sesión y está disponible al volver a ingresar, sin duplicar el evento.
 
 ## CA-03. Sin entrega con notificaciones desactivadas
 
@@ -129,12 +136,20 @@ sistema no entrega la notificación.
 
 ---
 
+## CP-03 — Persistencia sin sesión
+
+**Dado que** el destinatario está desconectado y las notificaciones están activas
+**Cuando** se asigna o reasigna una tarea a ese destinatario
+**Entonces** el aviso queda guardado y se muestra al volver a ingresar.
+
+---
+
 # Escenarios alternativos / error
 
 | ID | Escenario | Comportamiento esperado |
 |---|---|---|
 | FA-01 | Notificaciones desactivadas (`DEC-008`) | No se entrega la notificación. |
-| FA-02 | Destinatario sin sesión activa en ese momento | Pendiente por definir (¿se acumula/persiste hasta que ingrese?). |
+| FA-02 | Destinatario sin sesión activa en ese momento | Se persiste y se muestra al próximo ingreso (`DEC-029`). |
 
 ---
 
@@ -178,9 +193,7 @@ Ninguna.
 
 ## Importantes
 
-1. Comportamiento cuando el destinatario no tiene sesión activa: ¿la notificación
-   se persiste/acumula hasta su próximo ingreso? (nuevo IMP-020).
-2. Texto de los mensajes de notificación (MEN-001).
+1. Texto de los mensajes de notificación (MEN-001).
 
 ---
 
@@ -190,8 +203,7 @@ Ninguna.
 
 Wireframe funcional (baja fidelidad):
 `docs/historias-usuario/prototipos/HU-21-notificar-asignacion.svg` — notificación
-in-app por asignación/reasignación; persistencia sin sesión marcada como Pendiente
-(IMP-020). El diseño visual final es decisión de UX del equipo.
+in-app por asignación/reasignación; persistencia sin sesión aprobada (`DEC-029`). El diseño visual final es decisión de UX del equipo.
 
 ---
 
@@ -203,15 +215,16 @@ in-app por asignación/reasignación; persistencia sin sesión marcada como Pend
 - [x] Validaciones definidas.
 - [x] Reglas de negocio definidas.
 - [x] Flujo principal definido.
-- [ ] Errores relevantes definidos. (Comportamiento sin sesión activa pendiente.)
+- [x] Errores relevantes definidos. (Persistencia sin sesión aprobada.)
 - [x] Criterios verificables.
 - [x] Dependencias identificadas.
 - [x] Sin preguntas bloqueantes.
-- [ ] Sin supuestos funcionales críticos. (Persistencia de notificaciones; autorización/entrega `DEC-010`.)
+- [ ] Sin supuestos funcionales críticos. (Aceptación de seguridad `DEC-010` pendiente.)
 
 ## Resultado
 
-**Estado DoR:** No cumple. Bloqueado por el RNF de seguridad `DEC-010`; pendientes
-importantes (persistencia de notificación sin sesión, texto de mensajes).
+**Estado DoR:** Pendiente de revalidación humana. `IMP-020` resuelto por `DEC-029`.
+Seguridad y configuración implementadas como prerrequisitos mínimos (`DEC-030`),
+sin declarar aceptado el RNF transversal `DEC-010`. Texto de mensajes: MEN-001.
 
-**Pendientes:** 2 importantes.
+**Pendientes:** aceptación de seguridad y catálogo de mensajes.

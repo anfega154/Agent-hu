@@ -8,9 +8,9 @@
 | Actor | Sistema COMPIRA → Colaborador y Coordinador (destinatarios) |
 | Estado | Borrador |
 | Prioridad | Alta (RECOMENDACIÓN — requiere aprobación) |
-| Versión | 1.0 |
+| Versión | 1.1 |
 | Fuente principal | DOC (`compira-context.md` §6 M3) + DEC (`DEC-025`, `DEC-012`, `DEC-011`, `DEC-008`) |
-| Última actualización | 2026-09-21 |
+| Última actualización | 2026-09-26 |
 | Dependencias | HU-12 (tarea con fecha límite), HU-15 (estado), RT-04, RT-05 |
 
 > HU nueva en `Borrador`. `DEC-025` fusiona HU-23 (próxima a vencer) en esta HU:
@@ -32,9 +32,9 @@ dos escenarios: (a) **próxima a vencer**, dirigida al Colaborador responsable; 
 (b) **retrasada**, que alerta al Coordinador (documento oficial: "una tarea está
 retrasada → alerta al coordinador"). El estado `Retrasada` se activa de forma
 inmediata al cumplirse la fecha/hora límite (`DEC-012`) según la zona horaria global
-de la organización (`DEC-011`). El escenario "próxima a vencer" depende de un umbral
-que **no está definido** (`BLOQ-004` se resolvió solo para "retraso"; el umbral de
-"próximo" sigue pendiente). Módulo M3; resultado: alerta in-app entregada al
+de la organización (`DEC-011`). El aviso de "próxima a vencer" se genera **24 horas antes**
+del vencimiento (`DEC-029`). El retraso se comunica al coordinador actual del equipo
+de la tarea; no al creador por defecto. Las tareas canceladas quedan excluidas. Módulo M3; resultado: alerta in-app entregada al
 destinatario según el escenario. Origen: DOC / DEC.
 
 ---
@@ -45,7 +45,7 @@ destinatario según el escenario. Origen: DOC / DEC.
 |---|---|---|---|---|---|---|---|
 | Alerta | Elemento in-app (solo lectura) | N/A | — | — | — | No | Aviso mostrado al destinatario. |
 | Escenario | Derivado (no editable) | N/A | Enum | — | Próxima a vencer / Retrasada | No | Determina destinatario y disparo. |
-| Umbral "próxima a vencer" | Parámetro | Pendiente por definir | Pendiente por definir | Pendiente por definir | — | Pendiente por definir | Cuánto antes del vencimiento se alerta. **Pendiente por definir** (no resuelto). |
+| Umbral "próxima a vencer" | Regla fija | Sí | Horas | 24 | 24 horas antes | No | Avisar al entrar en las 24 horas previas al vencimiento (`DEC-029`). |
 
 ---
 
@@ -53,7 +53,7 @@ destinatario según el escenario. Origen: DOC / DEC.
 
 ## VF-01. Disparo de alerta de retraso
 
-**Qué se valida:** que una tarea no `Completada`/`Cerrada` haya superado su fecha
+**Qué se valida:** que una tarea no `Completada`/`Cerrada`/`Cancelada` haya alcanzado su fecha
 límite (zona horaria global, `DEC-011`).
 **Cuándo:** de forma inmediata al cumplirse la fecha/hora límite (`DEC-012`).
 **Si cumple:** el sistema marca la tarea `Retrasada` (HU-15) y alerta al Coordinador.
@@ -61,12 +61,11 @@ límite (zona horaria global, `DEC-011`).
 
 ## VF-02. Disparo de alerta de próxima a vencer
 
-**Qué se valida:** que la tarea entre en la ventana "próxima a vencer" según el umbral.
+**Qué se valida:** que la tarea entre en la ventana "próxima a vencer" de 24 horas previas al vencimiento.
 **Cuándo:** al alcanzarse el umbral previo al vencimiento.
 **Si cumple:** el sistema alerta al Colaborador responsable.
 **Si no cumple:** no se genera alerta.
-**Nota:** el umbral está `Pendiente por definir`; sin él, este escenario no es
-construible.
+**Exclusiones:** no aplica a tareas `Completada`, `Cerrada` o `Cancelada`.
 
 ---
 
@@ -75,13 +74,14 @@ construible.
 ## RN-01. Retraso inmediato
 
 Una tarea pasa a `Retrasada` de forma inmediata al cumplirse su fecha/hora límite
-(zona horaria global) si no está `Completada` ni `Cerrada`; sin margen de tolerancia.
+(zona horaria global) si no está `Completada`, `Cerrada` ni `Cancelada`; sin margen de tolerancia.
 Origen: DEC (`DEC-012`).
 
 ## RN-02. Destinatario del retraso
 
-La alerta de retraso se dirige al Coordinador.
-Origen: DOC (§6 M3).
+La alerta de retraso se dirige al **coordinador actual del equipo de la tarea**,
+no necesariamente al coordinador que la creó.
+Origen: DOC (§6 M3), DEC (`DEC-029`).
 
 ## RN-03. Referencia horaria única
 
@@ -105,7 +105,8 @@ gestionada en HU-15 (mismo disparador temporal).
 
 ## RC-02. Entrega en tiempo real
 
-Las alertas se entregan/actualizan en tiempo real (RT-04).
+Las alertas se entregan/actualizan en tiempo real (RT-04) y persisten para el
+próximo ingreso del destinatario desconectado (`DEC-029`).
 
 ---
 
@@ -113,15 +114,15 @@ Las alertas se entregan/actualizan en tiempo real (RT-04).
 
 ## CA-01. Alerta de retraso al Coordinador
 
-Cuando una tarea no `Completada`/`Cerrada` supera su fecha límite (zona horaria
+Cuando una tarea no `Completada`/`Cerrada`/`Cancelada` alcanza su fecha límite (zona horaria
 global) y las notificaciones están activas, el sistema alerta al Coordinador y la
 tarea queda `Retrasada` (HU-15).
 
 ## CA-02. Alerta de próxima a vencer al Colaborador
 
-Cuando una tarea entra en la ventana "próxima a vencer" (según el umbral definido) y
+Cuando una tarea entra en la ventana "próxima a vencer" (24 horas antes de su fecha límite) y
 las notificaciones están activas, el sistema alerta al Colaborador responsable.
-**Verificable solo una vez definido el umbral.**
+Se excluyen tareas `Completada`, `Cerrada` y `Cancelada`.
 
 ## CA-03. Sin entrega con notificaciones desactivadas
 
@@ -135,8 +136,23 @@ entrega la alerta.
 ## CP-01 — Retraso inmediato
 
 **Dado que** una tarea `En progreso` tiene fecha límite hoy a las 17:00 (zona global)
-**Cuando** el reloj alcanza las 17:00 sin que esté `Completada`/`Cerrada`
+**Cuando** el reloj alcanza las 17:00 sin que esté `Completada`/`Cerrada`/`Cancelada`
 **Entonces** el sistema la marca `Retrasada` y alerta al Coordinador.
+
+---
+
+## CP-02 — Aviso 24 horas antes
+
+**Dado que** una tarea activa vence mañana a las 17:00 y los avisos están activos
+**Cuando** el reloj alcanza hoy las 17:00
+**Entonces** se guarda un aviso de próxima a vencer para el responsable.
+
+## CP-03 — Coordinador vigente, cancelación y desconexión
+
+**Dado que** el equipo cambió de coordinador y el nuevo está desconectado
+**Cuando** vence una tarea activa del equipo
+**Entonces** el aviso persiste para el coordinador actual y aparece al ingresar.
+Una tarea cancelada no genera aviso ni pasa a `Retrasada`.
 
 ---
 
@@ -145,8 +161,8 @@ entrega la alerta.
 | ID | Escenario | Comportamiento esperado |
 |---|---|---|
 | FA-01 | Notificaciones desactivadas (`DEC-008`) | No se entrega la alerta. |
-| FA-02 | Umbral de "próxima a vencer" no definido | El escenario CA-02 no es construible hasta definir el umbral (BLOQ nuevo). |
-| FA-03 | Tarea ya `Completada`/`Cerrada` al vencer | No se genera alerta de retraso. |
+| FA-02 | Destinatario sin sesión activa | La alerta persiste y está disponible al próximo ingreso. |
+| FA-03 | Tarea ya `Completada`/`Cerrada`/`Cancelada` al vencer | No se generan alertas ni transición automática a Retrasada. |
 
 ---
 
@@ -170,8 +186,9 @@ entrega la alerta.
 
 - `DEC-025`: `HU-23` (alertar próxima a vencer) quedó fusionada en HU-24; su
   identificador no se reutiliza.
-- `BLOQ-004` (umbral) se resolvió por `DEC-012` **solo para "retraso"** (inmediato);
-  el umbral de "próxima a vencer" sigue `Pendiente por definir`.
+- `BLOQ-009` e `IMP-020` resueltos por `DEC-029`: 24 horas y entrega persistente/en vivo.
+- `DEC-030`: incluir seguridad, configuración y relación tarea-equipo como
+  prerrequisitos mínimos; las tareas existentes requieren asociación explícita.
 
 ---
 
@@ -186,13 +203,11 @@ entrega la alerta.
 
 ## Bloqueantes
 
-1. **Umbral de "próxima a vencer":** cuánto antes del vencimiento debe alertarse.
-   Sin él, el escenario CA-02/VF-02 no es construible (nuevo BLOQ-009).
+Ninguna pregunta funcional de M3; pendiente aceptación transversal de `DEC-010`.
 
 ## Importantes
 
-1. Comportamiento cuando el destinatario no tiene sesión activa (persistencia de la
-   alerta) — mismo pendiente que HU-21 (IMP-020).
+Ninguna sobre persistencia: resuelto por `DEC-029`.
 
 ---
 
@@ -202,8 +217,7 @@ entrega la alerta.
 
 Wireframe funcional (baja fidelidad):
 `docs/historias-usuario/prototipos/HU-24-alertas-vencimiento.svg` — escenario de
-retraso definido (`DEC-012`) y escenario "próxima a vencer" bloqueado por el umbral
-sin definir (BLOQ-009). El diseño visual final es decisión de UX del equipo.
+retraso inmediato (`DEC-012`) y aviso 24 horas antes (`DEC-029`). El diseño visual final es decisión de UX del equipo.
 
 ---
 
@@ -211,21 +225,20 @@ sin definir (BLOQ-009). El diseño visual final es decisión de UX del equipo.
 
 - [x] Actor definido.
 - [x] Objetivo definido.
-- [ ] Campos definidos. (Umbral "próxima a vencer" Pendiente por definir.)
-- [x] Validaciones definidas. (VF-02 no construible sin umbral.)
+- [x] Campos definidos. (Umbral fijo de 24 horas.)
+- [x] Validaciones definidas. (VF-02: 24 horas.)
 - [x] Reglas de negocio definidas.
 - [x] Flujo principal definido.
 - [x] Errores relevantes definidos.
-- [x] Criterios verificables. (CA-02 sujeto al umbral.)
+- [x] Criterios verificables. (CA-02: 24 horas.)
 - [x] Dependencias identificadas.
-- [ ] Sin preguntas bloqueantes. (Umbral "próxima a vencer" — BLOQ-009.)
+- [x] Sin preguntas funcionales bloqueantes de M3. (`DEC-029`.)
 - [ ] Sin supuestos funcionales críticos.
 
 ## Resultado
 
-**Estado DoR:** No cumple. Bloqueado por el umbral de "próxima a vencer" (BLOQ-009)
-y por el RNF de seguridad `DEC-010`. El escenario de **retraso** sí está
-completamente definido por `DEC-012`/`DEC-011`.
+**Estado DoR:** Pendiente de revalidación humana. Umbral y persistencia resueltos
+por `DEC-029`; prerrequisitos implementados según `DEC-030`. No se declara aceptado
+el RNF transversal `DEC-010`.
 
-**Pendientes:** 1 bloqueante (umbral próxima a vencer), 1 importante (persistencia
-de alerta sin sesión).
+**Pendientes:** aceptación de seguridad y configuración de la organización.

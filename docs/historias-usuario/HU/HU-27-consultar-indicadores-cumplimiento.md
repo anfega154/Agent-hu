@@ -34,8 +34,8 @@ retrasadas, y la carga de trabajo por responsable (cantidad de tareas asignadas 
 Colaborador, `DEC-020`). El alcance de datos por rol es análogo al del panel
 (`DEC-006`): Coordinador = su equipo; Administrador = toda la organización. El
 estado `Retrasada` proviene de `DEC-012`/`DEC-011`. Las **fórmulas de cálculo** de
-los indicadores de cumplimiento **no están definidas**, y el **umbral de "próxima a
-vencer"** tampoco (BLOQ-009). Módulo M4; resultado: indicadores consultables en
+los indicadores de cumplimiento **no están definidas**; el **umbral de "próxima a
+vencer"** es 24 horas (`DEC-029`). Módulo M4; resultado: indicadores consultables en
 tiempo real. Origen: DOC / DEC.
 
 ---
@@ -46,7 +46,7 @@ tiempo real. Origen: DOC / DEC.
 |---|---|---|---|---|---|---|---|
 | Nivel de cumplimiento | Indicador (solo lectura) | N/A | Pendiente por definir (¿porcentaje?) | — | — | No | Fórmula de cálculo: Pendiente por definir. |
 | Tareas vencidas / retrasadas | Indicador/conteo (solo lectura) | N/A | Conteo | — | — | No | Basado en el estado `Retrasada` (`DEC-012`). |
-| Tareas próximas a vencer | Indicador/conteo (solo lectura) | N/A | Conteo | — | — | No | Depende del umbral "próxima a vencer" (**BLOQ-009**, no definido). |
+| Tareas próximas a vencer | Indicador/conteo (solo lectura) | N/A | Conteo | — | — | No | Depende del umbral "próxima a vencer" (24 horas, `DEC-029`). |
 | Carga de trabajo por responsable | Indicador/conteo (solo lectura) | N/A | Conteo por Colaborador | — | — | No | Cantidad de tareas asignadas por Colaborador (`DEC-020`). |
 
 > Las fórmulas exactas (numerador/denominador, período, si excluye canceladas,
@@ -121,8 +121,8 @@ cumplimiento del alcance. **Verificable solo una vez definida la fórmula.**
 
 ## CA-05. Próximas a vencer (sujeto a umbral)
 
-Cuando se defina el umbral de "próxima a vencer" (BLOQ-009), el sistema mostrará el
-conteo de tareas próximas a vencer. **Verificable solo una vez definido el umbral.**
+El sistema mostrará el conteo de tareas próximas a vencer dentro de las 24 horas
+previas al vencimiento (`DEC-029`); las demás fórmulas siguen pendientes (IMP-021).
 
 ---
 
@@ -141,7 +141,7 @@ conteo de tareas próximas a vencer. **Verificable solo una vez definido el umbr
 | ID | Escenario | Comportamiento esperado |
 |---|---|---|
 | FA-01 | Fórmula de cumplimiento no definida | El indicador de cumplimiento no es construible hasta definir la fórmula. |
-| FA-02 | Umbral "próxima a vencer" no definido | El indicador de próximas a vencer no es construible (BLOQ-009). |
+| FA-02 | Tarea fuera de las 24 horas previas | No se cuenta como próxima a vencer (`DEC-029`). |
 | FA-03 | Sin tareas en el alcance | Indicadores en cero / estado vacío (detalle Pendiente por definir). |
 
 ---
@@ -183,9 +183,7 @@ conteo de tareas próximas a vencer. **Verificable solo una vez definido el umbr
 
 ## Bloqueantes
 
-1. **Umbral de "próxima a vencer"** (BLOQ-009): compartido con HU-24; sin él, el
-   indicador de próximas a vencer no es construible.
-2. **Fórmulas de los indicadores de cumplimiento** (y tiempos asociados): no
+1. **Fórmulas de los indicadores de cumplimiento** (y tiempos asociados): no
    definidas (IMP-021, ex resumen de análisis).
 
 ## Importantes
@@ -200,8 +198,8 @@ conteo de tareas próximas a vencer. **Verificable solo una vez definido el umbr
 
 Wireframe funcional (baja fidelidad):
 `docs/historias-usuario/prototipos/HU-27-indicadores-cumplimiento.svg` — carga de
-trabajo y retrasadas definidas; cumplimiento (IMP-021) y próximas a vencer (BLOQ-009)
-marcadas como bloqueadas. El diseño visual final es decisión de UX del equipo.
+trabajo y retrasadas definidas; cumplimiento (IMP-021) pendiente. El umbral de
+próximas a vencer queda actualizado por `DEC-029` (24 horas). El diseño visual final es decisión de UX del equipo.
 
 ---
 
@@ -209,21 +207,21 @@ marcadas como bloqueadas. El diseño visual final es decisión de UX del equipo.
 
 - [x] Actor definido.
 - [x] Objetivo definido.
-- [ ] Campos definidos. (Fórmulas y umbral Pendiente por definir.)
+- [ ] Campos definidos. (Fórmulas Pendiente por definir.)
 - [x] Validaciones definidas.
 - [x] Reglas de negocio definidas.
 - [x] Flujo principal definido.
 - [x] Errores relevantes definidos.
-- [ ] Criterios verificables. (CA-04 y CA-05 sujetos a fórmula/umbral.)
+- [ ] Criterios verificables. (CA-04 sujeto a fórmulas.)
 - [x] Dependencias identificadas.
-- [ ] Sin preguntas bloqueantes. (Umbral BLOQ-009; fórmulas IMP-021.)
+- [ ] Sin preguntas bloqueantes. (Fórmulas IMP-021.)
 - [ ] Sin supuestos funcionales críticos.
 
 ## Resultado
 
-**Estado DoR:** No cumple. Bloqueado por el umbral de "próxima a vencer" (BLOQ-009),
+**Estado DoR:** No cumple. Bloqueado por
 las fórmulas de indicadores (IMP-021) y el RNF de seguridad `DEC-010`. La carga de
 trabajo y el conteo de retrasadas sí están definidos.
 
-**Pendientes:** 1 bloqueante (umbral), 1 bloqueante/importante (fórmulas, IMP-021),
+**Pendientes:** 1 bloqueante/importante (fórmulas, IMP-021),
 1 importante (definición de indicadores).

@@ -49,10 +49,10 @@ por elaborar según plantilla.
 | OE3 | M2 | Cancelación | Cancelar tarea | HU-18 | OK-v1 (Borrador; DoR No cumple) |
 | OE3 | M2 | Aprobación / cierre | Aprobar / cerrar tarea | HU-19 | OK-v1 (Borrador; DoR No cumple) |
 | OE3 | M2 | Historial / trazabilidad | Consultar historial de la tarea | HU-20 | OK-v1 (Borrador; DoR No cumple) |
-| OE3 | M3 | Notificación de asignación/reasignación | Notificar evento de asignación | HU-21 | OK-v1 (Borrador; DoR No cumple) |
-| OE3 | M3 | Alertas de vencimiento | Próxima a vencer / retrasada | HU-24 | OK-v1 (Borrador; DoR No cumple, BLOQ-009) |
+| OE3 | M3 | Notificación de asignación/reasignación | Notificar evento de asignación | HU-21 | Borrador; entrega en vivo/persistente `DEC-029`; revalidación humana pendiente |
+| OE3 | M3 | Alertas de vencimiento | Próxima a vencer / retrasada | HU-24 | Borrador; aviso 24 h, coordinador vigente, exclusión Cancelada `DEC-029`; prerrequisitos `DEC-030` |
 | OE3 | M4 | Vista consolidada + filtros | Panel de seguimiento con filtros | HU-25 | OK-v1 (Borrador; DoR No cumple) |
-| OE3 | M4 | Indicadores + carga de trabajo | Cumplimiento, vencidas/próximas/retrasadas, carga por responsable | HU-27 | OK-v1 (Borrador; DoR No cumple, BLOQ-009, IMP-021) |
+| OE3 | M4 | Indicadores + carga de trabajo | Cumplimiento, vencidas/próximas/retrasadas, carga por responsable | HU-27 | OK-v1 (Borrador; DoR No cumple, IMP-021; umbral resuelto `DEC-029`) |
 | OE3 | M5 | Configuración de la organización | Zona horaria global + notificaciones generales | HU-28 | OK-v1 (Borrador; DoR No cumple, IMP-023) |
 | OE3 | M5 | Reportes | Productividad y cumplimiento | HU-29 | OK-v1 (Borrador; DoR No cumple, IMP-021) |
 | OE3 | M5 | Reportes | Retraso y tiempos de cierre | HU-38 | OK-v1 (Borrador; DoR No cumple, IMP-021) |

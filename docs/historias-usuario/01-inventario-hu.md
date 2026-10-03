@@ -60,7 +60,7 @@ desarrollo). Origen: DOC/HU/DEC.
 | HU-06 | M1 | Confirmación del restablecimiento de contraseña con código | Todos | Alta | Completada | Conforme (Fase 6, v1.0) · DoR Cumple | `DEC-017` |
 | HU-07 | M1 | Cierre de sesión y control de acceso a rutas protegidas | Todos | Alta | Completada | Conforme (Fase 6, v1.0) · DoR Cumple | `DEC-017` |
 | HU-08 | M1 | Registro de usuarios por parte del administrador ⚠️ requiere extensión: capturar Equipo al crear el usuario | Administrador | Alta | Completada (flujo base) | Conforme (Fase 6, v1.1) · DoR **No cumple** para la extensión de Equipo | `DEC-014`, `DEC-017` |
-| HU-09 | M1 | ~~Eliminación de usuarios por correo~~ | Administrador | — | (figura Completada en backlog oficial) | N/A | **Descartada** (`DEC-019`). ⚠️ Discrepancia con backlog oficial sin resolver (`IMP-012`). ID no reutilizado. |
+| HU-09 | M1 | ~~Eliminación de usuarios por correo~~ | Administrador | — | (figura Completada en backlog oficial) | N/A | **Descartada** (`DEC-019`). Discrepancia `IMP-012` **resuelta por sustitución**: la baja física se retira y se reemplaza por inactivación lógica reversible en HU-10 (`DEC-036`). ID no reutilizado. |
 
 ---
 
@@ -77,7 +77,7 @@ Generadas en Fase 6 (v1.0) según `hu-template.md`. `Borrador`, DoR No cumple.
 
 | ID | Nombre | Actor | Dependencias | Prioridad | Estado | Conformidad doc. | Decisiones |
 |---|---|---|---|---|---|---|---|
-| HU-10 | Editar información y rol de un usuario existente (incluye restablecer su contraseña) | Administrador | HU-08, HU-40 | Alta | Borrador | Generada · DoR No cumple (IMP-001, `DEC-010`) | `BLOQ-003`, `DEC-004`, `DEC-024` (absorbe HU-11), `IMP-001` |
+| HU-10 | Editar información y rol de un usuario existente (incluye restablecer su contraseña y activar/inactivar la cuenta) | Administrador | HU-08, HU-40 | Alta | Borrador | Generada · v1.1 · DoR No cumple (`DEC-010`) | `BLOQ-003`, `DEC-004`, `DEC-024` (absorbe HU-11), `DEC-035` (reset), `DEC-036` (activar/inactivar; sustituye HU-09) |
 | HU-40 | Consultar / listar usuarios de la organización | Administrador | HU-08 | Alta | Borrador | Generada · DoR No cumple (`DEC-010`) | `DEC-028` (hueco de cobertura). Habilita HU-10 |
 
 ### M2 — Gestión de tareas
@@ -103,8 +103,8 @@ Generadas en Fase 6 (v1.0) según `hu-template.md`. `Borrador`, DoR No cumple.
 
 | ID | Nombre | Actor | Dependencias | Prioridad | Estado | Conformidad doc. | Decisiones |
 |---|---|---|---|---|---|---|---|
-| HU-21 | Notificar evento de asignación de tarea (nueva asignación / reasignación) | Colaborador | HU-13, HU-17 | Alta | Borrador | Generada · DoR No cumple (IMP-020, `DEC-010`) | `DEC-018(a)` (fusiona HU-22) |
-| HU-24 | Alertas de vencimiento de tarea (próxima a vencer / retrasada) | Colaborador / Coordinador | HU-12, HU-15 | Alta | Borrador | Generada · DoR No cumple (**BLOQ-009**, `DEC-010`) | `DEC-012`, `DEC-025` (fusiona HU-23) |
+| HU-21 | Notificar evento de asignación de tarea (nueva asignación / reasignación) | Colaborador | HU-13, HU-17 | Alta | Borrador | Generada · Revalidación humana pendiente (`DEC-010`, MEN-001); persistencia resuelta `DEC-029` | `DEC-018(a)` (fusiona HU-22) |
+| HU-24 | Alertas de vencimiento de tarea (próxima a vencer / retrasada) | Colaborador / Coordinador | HU-12, HU-15 | Alta | Borrador | Generada · Revalidación humana pendiente (`DEC-010`); umbral/persistencia resueltos `DEC-029`, prerrequisitos `DEC-030` | `DEC-012`, `DEC-025` (fusiona HU-23) |
 
 ### M4 — Panel de seguimiento
 
@@ -113,7 +113,7 @@ Generadas en Fase 6 (v1.0) según `hu-template.md`. `Borrador`, DoR No cumple.
 | ID | Nombre | Actor | Dependencias | Prioridad | Estado | Conformidad doc. | Decisiones |
 |---|---|---|---|---|---|---|---|
 | HU-25 | Consultar panel de seguimiento (incluye filtros por usuario/estado/fecha) | Coordinador / Administrador | HU-13, HU-15 | Alta | Borrador | Generada · DoR No cumple (`DEC-010`) | `DEC-006`, `DEC-018(b)` (fusiona HU-26), `DEC-006` (fusiona HU-30) |
-| HU-27 | Consultar indicadores de cumplimiento y tareas vencidas/próximas/retrasadas (incluye "carga de trabajo por responsable") | Coordinador / Administrador | HU-15 | Media | Borrador | Generada · DoR No cumple (**BLOQ-009**, IMP-021, `DEC-010`) | `DEC-006`, `DEC-020`, `DEC-012`, `DEC-028`; dep. ajustada `DEC-027` |
+| HU-27 | Consultar indicadores de cumplimiento y tareas vencidas/próximas/retrasadas (incluye "carga de trabajo por responsable") | Coordinador / Administrador | HU-15 | Media | Borrador | Generada · DoR No cumple (IMP-021, `DEC-010`; umbral resuelto `DEC-029`) | `DEC-006`, `DEC-020`, `DEC-012`, `DEC-028`; dep. ajustada `DEC-027` |
 
 ### M5 — Administración (organización, equipos, reportes)
 
@@ -144,7 +144,7 @@ Conservados por la regla de identificadores inmutables; no se reutilizan.
 
 | ID | Estado | Motivo | Decisión |
 |---|---|---|---|
-| HU-09 | Descartada | Descartada pese a figurar `Completada` en el backlog oficial; discrepancia abierta (`IMP-012`). | `DEC-019` |
+| HU-09 | Descartada | Descartada pese a figurar `Completada` en el backlog oficial; discrepancia `IMP-012` resuelta por sustitución con la inactivación lógica reversible de HU-10. | `DEC-019`, `DEC-036` |
 | HU-11 | Fusionada en HU-10 | Restablecer contraseña es una acción de la administración de un usuario existente; sin flujo independiente que justifique HU propia. | `DEC-024` |
 | HU-22 | Fusionada en HU-21 | Mismo mecanismo de notificación in-app, dos eventos, sin reglas propias. | `DEC-018(a)` |
 | HU-23 | Fusionada en HU-24 | Misma mecánica de alerta temporal de tarea; se unifican "próxima a vencer" y "retrasada" con escenarios de aceptación distintos. | `DEC-025` |

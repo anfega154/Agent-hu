@@ -19,8 +19,8 @@
   <text x="35" y="194" font-size="10" fill="#888">CA-03: si interruptor global desactivado → no entrega.</text>
   <text x="35" y="216" font-size="10" fill="#888">RC-01: entrega en tiempo real (RT-04).</text>
   <rect x="35" y="245" width="420" height="44" rx="4" fill="#fff9e6" stroke="#e0c56a" stroke-dasharray="4 3"/>
-  <text x="45" y="265" font-size="10" fill="#8a6d1a">Pendiente IMP-020: ¿persiste hasta el próximo ingreso si no</text>
-  <text x="45" y="280" font-size="10" fill="#8a6d1a">hay sesión activa? Texto del mensaje: MEN-001.</text>
+  <text x="45" y="265" font-size="10" fill="#8a6d1a">DEC-029: persiste hasta el próximo ingreso si no</text>
+  <text x="45" y="280" font-size="10" fill="#8a6d1a">hay sesión activa. Texto del mensaje: MEN-001.</text>
 
   <text x="20" y="372" font-size="10" fill="#999">Trazabilidad HU-21: VF-01, RN-01..RN-03, CA-01..CA-03. Fusiona HU-22.</text>
 </svg>

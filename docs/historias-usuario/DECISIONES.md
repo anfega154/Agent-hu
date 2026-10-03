@@ -1259,3 +1259,275 @@ Pendientes afectados:
 
 Estado:
 Vigente
+
+---
+
+## DEC-029
+
+Fecha: 2026-09-26
+
+Decisión:
+- Avisar **24 horas antes** del vencimiento al Colaborador responsable.
+- Entregar en tiempo real y persistir los avisos para destinatarios desconectados.
+- Enviar el retraso al **coordinador actual del equipo**, no al creador por defecto.
+- Excluir tareas `Cancelada` de avisos temporales y del cambio a `Retrasada`, además
+  de `Completada` y `Cerrada`. Complementa `DEC-012`.
+
+Origen: respuestas explícitas del usuario en el desarrollo de M3.
+
+Motivo: resolver las ambigüedades funcionales sin ampliar los canales de entrega.
+
+HU afectadas: HU-21, HU-24; umbral compartido de HU-27, sin implementar M4.
+
+Módulos afectados: M3; referencia de umbral de M4.
+
+Pendientes afectados: `BLOQ-009` e `IMP-020` resueltos.
+
+Estado: Vigente. No implica aprobación del estado de las HU.
+
+---
+
+## DEC-030
+
+Fecha: 2026-09-26
+
+Decisión:
+Incluir en M3 los prerrequisitos mínimos autorizados: seguridad `DEC-010`, zona
+horaria e interruptor global HU-28; crear equipos, cambiar su coordinador, vincular
+colaboradores sin equipo y asociar cada tarea a su equipo. Las tareas existentes
+requieren asociación explícita; no se infiere el equipo desde el creador.
+
+Origen: autorización explícita del usuario en el desarrollo de M3.
+
+Motivo: entregar alertas al coordinador vigente con acceso seguro y configuración
+organizacional, sin desarrollar M5 completo.
+
+HU afectadas: HU-21, HU-24; prerrequisitos de HU-12, HU-28, HU-31, HU-32, HU-41.
+
+Módulos afectados: M3 y prerrequisitos mínimos M2/M5.
+
+Pendientes afectados: `BLOQ-008` implementado en el alcance, pendiente aceptación
+transversal; `IMP-016`, `IMP-022` e `IMP-023` no se declaran resueltos. No se incluye
+traslado de colaboradores con tareas activas ni extensión del registro HU-08.
+
+Estado: Vigente. La implementación local no sustituye la aceptación humana.
+
+---
+
+## DEC-031
+
+Fecha: 2026-10-01
+
+Decisión:
+Fórmula del indicador de cumplimiento (HU-27, también base de los reportes HU-29):
+**cumplimiento = tareas cerradas a tiempo / tareas cerradas**, expresado en
+porcentaje entero redondeado. Se considera "cerrada a tiempo" una tarea en estado
+`CLOSED` cuya marca de cierre no es posterior a su `due_date`. Las tareas canceladas
+se excluyen del cálculo (no entran al denominador). Si no hay tareas cerradas en el
+alcance, el indicador se expone como no disponible (`null` / "—"), no como 0 %.
+
+Origen:
+Autorización explícita del usuario (sesión 2026-10-01), eligiendo la opción
+recomendada A1 sobre las alternativas presentadas (A2 total−retrasadas; A3 no
+mostrar %).
+
+Motivo:
+Refleja la calidad real de cumplimiento y es consistente con el estado `Retrasada`
+(`DEC-012`). Resuelve el pendiente `IMP-021` para HU-27/HU-29 dentro del alcance
+académico.
+
+Nota de aproximación:
+No existe una columna dedicada de "fecha de cierre"; se usa `tasks.updated_at` (que
+el trigger actualiza en cada cambio de estado) como marca de cierre para las tareas
+`CLOSED`. Es una aproximación aceptable para el alcance actual. Si se requiere
+precisión histórica estricta, debería leerse el evento `CLOSED` de `task_history`.
+
+HU afectadas:
+- HU-27 (CA-04 queda verificable).
+- HU-29 (reutiliza la misma fórmula por responsable).
+
+Módulos afectados:
+- M4, M5.
+
+Pendientes afectados:
+- `IMP-021` — resuelto para el cálculo de cumplimiento en el alcance definido.
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
+
+---
+
+## DEC-032
+
+Fecha: 2026-10-01
+
+Decisión:
+Alcance de los reportes bajo demanda (HU-29 productividad/cumplimiento y HU-38
+retraso/tiempos de cierre): una **vista de reportes por responsable** con alcance de
+datos por rol (Administrador = toda la organización; Coordinador = sus equipos),
+que combina en una sola pantalla las métricas de ambas HU: totales, activas,
+cerradas, cerradas a tiempo, retrasadas, % de cumplimiento (`DEC-031`) y tiempo
+promedio de cierre en horas (`updated_at − created_at` de las tareas `CLOSED`).
+
+Origen:
+Autorización explícita del usuario (sesión 2026-10-01), opción recomendada B1 sobre
+las alternativas (B2 solo totales; B3 diferir).
+
+Motivo:
+Cubre ambas HU reutilizando los datos existentes, sin inventar métricas fuera de las
+definidas y sin persistir reportes (siguen siendo "solo pantalla, bajo demanda").
+
+HU afectadas:
+- HU-29, HU-38.
+
+Módulos afectados:
+- M5.
+
+Pendientes afectados:
+- `IMP-021` — resuelto para el alcance de reportes definido. No incluye reportes
+  configurables/guardables (HU-34 sigue diferida).
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
+
+---
+
+## DEC-033
+
+Fecha: 2026-10-01
+
+Decisión:
+Filtros del panel de seguimiento (HU-25): se implementan **en cliente** sobre las
+tareas ya cargadas, con filtro por **responsable**, por **estado** (los seis estados
+vigentes del sistema) y por **rango de fecha límite** (`due_date` desde/hasta). Los
+filtros son combinables y se pueden limpiar.
+
+Origen:
+Autorización explícita del usuario (sesión 2026-10-01), opción recomendada C1 sobre
+las alternativas (C2 filtros en servidor; C3 solo estado).
+
+Motivo:
+Entrega inmediata y buena UX para el volumen del alcance académico, sin ampliar el
+endpoint. La "fecha" del filtro se define como la fecha límite de la tarea.
+
+HU afectadas:
+- HU-25.
+
+Módulos afectados:
+- M4.
+
+Pendientes afectados:
+- Detalle de columnas/paginación del listado (MEN-001) sigue abierto; se definió el
+  significado de la "fecha" del filtro (= `due_date`).
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
+
+---
+
+## DEC-034
+
+Fecha: 2026-10-01
+
+Decisión:
+Presentación de la carga de trabajo por responsable (HU-27): mostrar el **nombre y
+correo** del responsable en lugar de su identificador técnico, resolviéndolos en el
+servidor al construir el indicador y el reporte.
+
+Origen:
+Autorización explícita del usuario (sesión 2026-10-01), opción recomendada D1 sobre
+D2 (dejar el UUID).
+
+Motivo:
+Mejora la usabilidad del panel y los reportes con bajo esfuerzo.
+
+HU afectadas:
+- HU-27, HU-29, HU-38.
+
+Módulos afectados:
+- M4, M5.
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
+
+---
+
+## DEC-035
+
+Fecha: 2026-10-01
+
+Decisión:
+Flujo de restablecimiento de contraseña por el Administrador (HU-10, pendiente
+`IMP-001`): el Administrador reemite una **contraseña temporal** mediante el
+proveedor de identidad (Cognito `AdminSetUserPassword` con `permanent=false`); el
+usuario queda obligado a cambiarla en su próximo inicio de sesión (reto
+`NEW_PASSWORD_REQUIRED`), de forma consistente con el alta de usuarios (HU-08). Se
+descarta, para esta iteración, el flujo alternativo de enviar un código de
+recuperación (HU-05/HU-06).
+
+Origen:
+Autorización explícita del usuario (sesión 2026-10-01).
+
+Motivo:
+Reutiliza el mecanismo ya probado de HU-08 (contraseña temporal + cambio
+obligatorio), es simple de operar para el Administrador y mantiene la seguridad en el
+servidor (`DEC-010`).
+
+HU afectadas:
+- HU-10 (CA-03).
+
+Módulos afectados:
+- M5.
+
+Pendientes afectados:
+- `IMP-001` — resuelto con la opción de contraseña temporal reemitida.
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
+
+
+---
+
+## DEC-036
+
+Fecha: 2026-10-03
+
+Decisión:
+La baja de usuarios en COMPIRA es una **inactivación lógica reversible**, no una
+eliminación física. Se incorpora como acción de HU-10 (administración de un usuario
+existente): el Administrador puede **inactivar** una cuenta (estado `DISABLED`) y
+**reactivarla** (estado `ACTIVE`). Al inactivar, el usuario pierde el acceso de
+inmediato (la seguridad solo admite usuarios `ACTIVE`, `DEC-010`), pero conserva su
+información e historial. Un Administrador **no puede inactivar su propia cuenta**.
+En el proveedor de identidad se usa `AdminDisableUser` / `AdminEnableUser` (no
+`AdminDeleteUser`).
+
+Esta decisión **sustituye funcionalmente** la eliminación física descartada en
+`DEC-019` (HU-09) y **resuelve la discrepancia** señalada en ese ADR e `IMP-012`: la
+capacidad de borrado permanente se retira del producto (frontend y flujo expuesto) y
+se reemplaza por la inactivación lógica. El identificador HU-09 permanece
+`Descartado` y no se reutiliza.
+
+Origen:
+Autorización explícita del equipo del proyecto (sesión 2026-10-03), tras revisar que
+la eliminación física seguía presente en el software pese a `DEC-019` y optar por una
+baja lógica reversible.
+
+Motivo:
+Evita la pérdida irreversible de cuentas, historial y trazabilidad; es coherente con
+el estado `DISABLED` ya existente en el modelo de usuario y con el control de acceso
+por estado (`DEC-010`). Reversibilidad y menor riesgo operativo.
+
+HU afectadas:
+- HU-10 → ampliada (activar/inactivar como acción de edición; versión 1.1).
+- HU-09 → permanece `Descartada`; discrepancia `IMP-012` resuelta por sustitución.
+
+Módulos afectados:
+- M1 (identidad/seguridad), M5 (administración de usuarios).
+
+Pendientes afectados:
+- `IMP-012` — resuelto: la eliminación física se retira y se sustituye por baja
+  lógica reversible.
+
+Estado:
+Vigente. La implementación local no sustituye la aceptación humana.
